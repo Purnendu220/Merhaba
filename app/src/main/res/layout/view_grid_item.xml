@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_marginLeft="@dimen/margin_4"
+    android:layout_marginTop="@dimen/margin_4"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewClass"
+        style="@style/CardViewProfileLarge"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewClass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_holder" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@color/black_transparent" />
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/textViewGymName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/location"
+        android:drawableTint="@color/theme_dark_text"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:padding="@dimen/margin_5"
+        android:text="Gold Gym"
+        android:textColor="@color/theme_dark_text"
+        android:textSize="@dimen/text_large"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewClass" />
+
+    <TextView
+        android:id="@+id/trainerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableTint="@color/theme_dark_text"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:padding="@dimen/margin_5"
+        android:text="Yasmeen"
+        android:textColor="@color/theme_dark_text"
+        android:textSize="@dimen/text_large"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewClass" />
+
+    <TextView
+        android:id="@+id/textViewPriceModel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_button_bottom_corners"
+        android:drawableTint="@color/theme_dark_text"
+        android:elevation="@dimen/margin_5"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="@dimen/margin_8"
+        android:text="Play"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_medium"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/cardViewClass"
+        app:layout_constraintLeft_toLeftOf="@id/cardViewClass"
+        app:layout_constraintRight_toRightOf="@id/cardViewClass" />
+
+    <TextView
+        android:id="@+id/textViewWorkoutType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/transparent"
+        android:drawableTint="@color/theme_dark_text"
+        android:elevation="@dimen/margin_5"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:padding="@dimen/margin_10"
+        android:text="Yoga"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintLeft_toLeftOf="@id/cardViewClass"
+        app:layout_constraintTop_toTopOf="@id/cardViewClass" />
+</android.support.constraint.ConstraintLayout>

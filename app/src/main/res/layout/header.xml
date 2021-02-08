@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/header_relative_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="1dp"
+    android:background="@color/menuColor"
+    >
+            <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:src="@drawable/toolbarlogowhite"
+            android:background="@color/menuColor"
+             android:layout_marginTop="10dp"   />
+
+
+        <TextView
+            android:id="@+id/txvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="bottom"
+            android:layout_below="@+id/imageView"
+            android:text="Hi Users"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="true"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/txvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:gravity="bottom"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:layout_below="@id/txvName"
+            android:layout_centerHorizontal="true"
+            />
+
+
+</RelativeLayout>

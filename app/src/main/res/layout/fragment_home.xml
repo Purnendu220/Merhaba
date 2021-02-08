@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ui.home.HomeFragment"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <TextView
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="2dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/banner1"
+            android:visibility="gone"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/banner"
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/view_category"
+                >
+
+
+
+
+            </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/loader2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_weight="1"
+            android:src="@drawable/hloader"
+            android:visibility="visible"
+            android:layout_centerInParent="true"
+            />
+        <com.example.jean.jcplayer.view.JcPlayerView
+            android:background="@color/menuColor"
+            android:id="@+id/jcplayer"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:show_random_button="false"
+            app:show_repeat_button="false"
+            android:forceHasOverlappingRendering="true"
+            android:fitsSystemWindows="true"
+            android:gravity="bottom"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+</RelativeLayout>

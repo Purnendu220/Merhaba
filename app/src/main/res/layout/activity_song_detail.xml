@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SongActivity"
+    android:background="@color/white"
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/songToolbar"
+        app:title="Song Detail"
+        android:background="@color/menuColor">
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/songToolbar"
+        >
+        <ImageView
+            android:id="@+id/songImage"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:src="@drawable/slide1"
+            android:scaleType="centerCrop"
+            android:layout_margin="@dimen/margin_20"
+            ></ImageView>
+
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/margin_20"
+    android:layout_marginBottom="@dimen/margin_20"
+    android:layout_marginLeft="@dimen/margin_30"
+    android:layout_marginRight="@dimen/margin_30"
+    android:weightSum="2"
+    android:gravity="center"
+    android:layout_gravity="center"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:padding="@dimen/margin_5"
+        android:id="@+id/addToCart"
+        >
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_cart"
+            android:scaleType="centerCrop"
+            ></ImageView>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            ></View>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/palySong"
+
+        >
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_play_arrow_24"
+            android:scaleType="centerCrop"
+            ></ImageView>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            ></View>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/addToFav"
+        android:visibility="gone"
+        >
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_heart"
+            android:scaleType="centerCrop"
+            ></ImageView>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            ></View>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/giftFriend"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_gift"></ImageView>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            ></View>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+
+     <View
+         android:layout_width="match_parent"
+         android:layout_height="1dp"
+         android:background="@color/colorAccent"
+         android:layout_marginTop="@dimen/margin_5"
+         android:layout_marginLeft="@dimen/margin_20"
+         android:layout_marginRight="@dimen/margin_20"
+         android:layout_marginBottom="@dimen/margin_10"
+         ></View>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="right"
+      android:orientation="horizontal"
+      android:layout_marginRight="@dimen/margin_20"
+
+      >
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Song Name: "
+          android:textColor="@color/textColorHead"
+          android:textSize="@dimen/text_extra_large"
+          >
+
+      </TextView>
+      <TextView
+          android:id="@+id/txtSongName"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="jfjsjd fjgj sjg jsdgj jgj sgdg "
+          android:textColor="@color/theme_dark_text"
+          android:textSize="@dimen/text_extra_large"
+          android:textStyle="bold"
+
+          >
+
+      </TextView>
+
+  </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:layout_marginRight="@dimen/margin_20"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Song Id: "
+                android:textColor="@color/textColorHead"
+                android:textSize="@dimen/text_extra_large"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/songId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="jfjsjd fjgj sjg jsdgj jgj sgdg "
+                android:textColor="@color/theme_dark_text"
+                android:textSize="@dimen/text_extra_large"
+                android:textStyle="bold"
+
+
+                >
+
+            </TextView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:layout_marginRight="@dimen/margin_20"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Artist Name: "
+                android:textColor="@color/textColorHead"
+                android:textSize="@dimen/text_extra_large"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/txtArtistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="jfjsjd fjgj sjg jsdgj jgj sgdg "
+                android:textColor="@color/theme_dark_text"
+                android:textSize="@dimen/text_extra_large"
+                android:textStyle="bold"
+
+
+                >
+
+            </TextView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:layout_marginRight="@dimen/margin_20"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category Name: "
+                android:textColor="@color/textColorHead"
+                android:textSize="@dimen/text_extra_large"
+
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/txtCategoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="jfjsjd fjgj sjg jsdgj jgj sgdg "
+                android:textColor="@color/theme_dark_text"
+                android:textSize="@dimen/text_extra_large"
+                android:textStyle="bold"
+
+                >
+
+            </TextView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <com.example.jean.jcplayer.view.JcPlayerView
+        android:background="@color/menuColor"
+        android:id="@+id/jcplayer"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:show_random_button="false"
+        app:show_repeat_button="false"
+        android:forceHasOverlappingRendering="true"
+        android:fitsSystemWindows="true"
+        android:gravity="bottom"
+        android:visibility="gone"/>
+</RelativeLayout>

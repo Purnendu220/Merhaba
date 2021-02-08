@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.ui.player.PlayerFragment"
+    android:background="@color/white"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/frameLayout"
+        >
+        <ImageView
+            android:id="@+id/songImage"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:src="@drawable/songimg"
+            android:scaleType="centerCrop"
+            android:layout_margin="@dimen/margin_20"
+            ></ImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom"
+            android:background="@color/colorAccentTrans"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:id="@+id/txtSongName"
+
+                ></TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_5"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:id="@+id/txtArtistName"
+                ></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_5"
+
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:id="@+id/txtRingtoneId"
+                ></TextView>
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/frameLayout"
+       android:layout_alignParentBottom="true"
+       >
+       <RelativeLayout
+           android:id="@+id/layoutProgress"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="@dimen/margin_20"
+
+           >
+           <RelativeLayout
+               android:id="@+id/timeLayout"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/login"
+                   android:textColor="@color/colorAccent"
+                   android:layout_marginLeft="@dimen/margin_20"
+                   android:layout_marginTop="@dimen/margin_5"
+
+                   android:textStyle="normal"
+                   android:textSize="14sp"
+                   android:id="@+id/txtProgressTime"
+                   ></TextView>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/login"
+                   android:textColor="@color/colorAccent"
+                   android:layout_marginLeft="@dimen/margin_20"
+                   android:layout_marginTop="@dimen/margin_5"
+
+                   android:textStyle="normal"
+                   android:textSize="14sp"
+                   android:id="@+id/txtTotalProgress"
+                   android:layout_alignParentEnd="true"
+                   android:layout_marginRight="@dimen/margin_20"
+                   ></TextView>
+           </RelativeLayout>
+
+           <app.minimize.com.seek_bar_compat.SeekBarCompat
+               android:id="@+id/materialSeekBar"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:maxHeight="300sp"
+               app:progressColor="@color/colorAccent"
+               app:progressBackgroundColor="#000"
+               app:thumbColor="@color/colorAccent"
+               app:thumbAlpha="1.0"
+               android:layout_below="@+id/timeLayout"
+               />
+
+
+       </RelativeLayout>
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/layoutRateFav"
+           android:layout_below="@id/layoutProgress"
+           android:layout_marginTop="@dimen/margin_10"
+           android:layout_marginLeft="@dimen/margin_20"
+           android:layout_marginRight="@dimen/margin_20"
+           >
+           <RatingBar
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               style= "@style/CustomRatingBar"
+               android:id="@+id/ratingBar"
+               android:numStars="5"
+               android:stepSize="0.01"
+               android:isIndicator="true"
+               android:visibility="gone"
+               />
+           <ImageView
+               android:id="@+id/imageFav"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_add_fav"
+               android:layout_weight="1"
+               android:padding="@dimen/margin_10"
+               android:layout_alignParentEnd="true"
+               ></ImageView>
+
+
+
+       </RelativeLayout>
+
+       <LinearLayout
+           android:id="@+id/layoutControls"
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_margin="@dimen/margin_20"
+           android:layout_below="@id/layoutRateFav"
+           android:weightSum="5"
+           >
+
+           <ImageView
+               android:id="@+id/imageRepeat"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_repeat"
+               android:layout_weight="1"
+               android:padding="@dimen/margin_10"
+               ></ImageView>
+           <ImageView
+               android:id="@+id/imagePrev"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_prev"
+               android:layout_weight="1"
+               android:padding="@dimen/margin_10"
+
+
+               ></ImageView>
+
+           <ImageView
+               android:id="@+id/imagePlayPause"
+               android:layout_width="0dp"
+               android:layout_height="34dp"
+               android:layout_weight="1"
+               android:padding="@dimen/margin_10"
+               android:src="@drawable/ic_play"
+               android:visibility="visible"
+
+               ></ImageView>
+
+
+           <ImageView
+               android:id="@+id/imagePlayNext"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_next"
+               android:layout_weight="1"
+               android:padding="@dimen/margin_10"
+
+               ></ImageView>
+           <ImageView
+               android:id="@+id/imagePlayShuffle"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/ic_shuffle"
+               android:layout_weight="1"
+               android:padding="@dimen/margin_10"
+
+               ></ImageView>
+
+
+       </LinearLayout>
+
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/layoutControls"
+           android:layout_marginTop="@dimen/margin_10"
+           android:id="@+id/layoutActionMain"
+
+           >
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:layout_marginLeft="@dimen/margin_20"
+               >
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/login"
+                   android:textColor="@color/colorAccent"
+                   android:layout_marginLeft="@dimen/margin_10"
+                   android:layout_marginTop="@dimen/margin_10"
+                   android:textStyle="bold"
+                   android:textSize="16sp"
+                   android:id="@+id/txtSongNameBottom"
+
+                   ></TextView>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/login"
+                   android:textColor="@color/colorAccent"
+                   android:layout_marginLeft="@dimen/margin_10"
+                   android:layout_marginTop="@dimen/margin_5"
+                   android:textStyle="normal"
+                   android:textSize="14sp"
+                   android:id="@+id/txtArtistNameBottom"
+                   ></TextView>
+
+
+           </LinearLayout>
+
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentEnd="true"
+               android:orientation="horizontal"
+               android:layout_centerVertical="true"
+               android:id="@+id/layoutAction"
+               >
+               <ImageView
+                   android:id="@+id/imageGift"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_send_gift"
+                   android:layout_weight="1"
+                   android:padding="@dimen/margin_10"
+                   ></ImageView>
+               <ImageView
+                   android:id="@+id/imageGetIt"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_get_it"
+                   android:layout_weight="1"
+                   android:padding="@dimen/margin_10"
+
+
+
+                   ></ImageView>
+
+
+           </LinearLayout>
+
+
+       </RelativeLayout>
+
+
+   </RelativeLayout>
+
+
+
+
+
+
+
+    <com.example.jean.jcplayer.view.JcPlayerView
+        android:background="@color/menuColor"
+        android:id="@+id/jcplayer"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:show_random_button="false"
+        app:show_repeat_button="false"
+        android:forceHasOverlappingRendering="true"
+        android:fitsSystemWindows="true"
+        android:gravity="bottom"
+        android:visibility="gone"/>
+
+</RelativeLayout>

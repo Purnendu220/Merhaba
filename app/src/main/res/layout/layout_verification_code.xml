@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/float_transparent"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/bg_round_popup"
+
+
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        android:id="@+id/layoutMain"
+        >
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:textColor="@color/textColorHead"
+            android:text="@string/enter_otp_code"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etDigit1"
+                style="@style/etDigits"
+                android:textColor="@color/textColorHead"
+                android:nextFocusDown="@+id/etDigit2"
+                android:background="@drawable/rounded_edit_text"
+                />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etDigit2"
+                style="@style/etDigits"
+                android:textColor="@color/textColorHead"
+                android:nextFocusDown="@+id/etDigit3"
+                android:background="@drawable/rounded_edit_text"
+                android:layout_marginLeft="@dimen/margin_5"
+
+                />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etDigit3"
+                style="@style/etDigits"
+                android:textColor="@color/textColorHead"
+                android:nextFocusDown="@+id/etDigit4"
+                android:background="@drawable/rounded_edit_text"
+                android:layout_marginLeft="@dimen/margin_5"
+
+                />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etDigit4"
+                style="@style/etDigits"
+                android:textColor="@color/textColorHead"
+                android:nextFocusDown="@+id/etDigit5"
+                android:background="@drawable/rounded_edit_text"
+                android:layout_marginLeft="@dimen/margin_5"
+
+
+                />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etDigit5"
+                style="@style/etDigits"
+                android:textColor="@color/textColorHead"
+                android:visibility="gone"
+                android:nextFocusDown="@+id/etDigit6" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etDigit6"
+                android:visibility="gone"
+                android:textColor="@color/textColorHead"
+                style="@style/etDigits" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            android:background="@drawable/rounded_corner_red_rectangle"
+            android:gravity="center">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnContinue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="6dp"
+                android:paddingRight="6dp"
+                android:paddingLeft="6dp"
+                android:text="@string/_continue_ar"
+                android:textAllCaps="false"
+                android:textColor="@color/backgroundLight"
+                android:textSize="20sp" />
+
+            <ProgressBar
+                android:id="@+id/pbVerify"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="gone"
+                android:theme="@style/AppTheme"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            android:background="@color/separatorPink"
+            ></View>
+
+
+    </LinearLayout>
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/didnt_receive_code"
+         android:layout_below="@+id/layoutMain"
+         android:layout_marginTop="@dimen/margin_30"
+         android:textColor="@color/textColorHead"
+         android:layout_marginLeft="@dimen/margin_20"
+         android:id="@+id/textDidntReceivedCode"
+         ></TextView>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tvCountDownTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_30"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:text=""
+            android:textColor="@color/textColorHead"
+            android:layout_below="@+id/layoutMain"
+            android:layout_toRightOf="@+id/textDidntReceivedCode"
+            android:layout_marginLeft="@dimen/margin_10"
+
+            />
+    <RelativeLayout
+        android:id="@+id/rlResend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_corner_red_rectangle"
+        android:orientation="vertical"
+
+        android:layout_marginBottom="@dimen/margin_10"
+        android:layout_below="@+id/layoutMain"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/margin_20"
+        >
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnResendCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:text="إعادة إرسال"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+
+    </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

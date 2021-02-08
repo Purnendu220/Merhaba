@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SongActivity"
+    android:background="@color/white"
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/songToolbar"
+        app:title="Songs"
+        android:background="@color/menuColor">
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/songRecyclerView"
+        android:scrollbars="none"
+        android:layout_below="@id/songToolbar"
+        android:layout_margin="10dp"
+        android:padding="5dp"/>
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/loader2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_weight="1"
+        android:src="@drawable/hloader"
+        android:visibility="visible"
+        android:layout_centerInParent="true"
+        />
+    <com.example.jean.jcplayer.view.JcPlayerView
+        android:background="@color/menuColor"
+        android:id="@+id/jcplayer"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:show_random_button="false"
+        app:show_repeat_button="false"
+        android:forceHasOverlappingRendering="true"
+        android:fitsSystemWindows="true"
+        android:gravity="bottom"
+        android:visibility="gone"/>
+</RelativeLayout>

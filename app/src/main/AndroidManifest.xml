@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wpits.merhaba">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_applogo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_applogo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.PlayerActivity" />
+        <activity
+            android:name=".activity.HomeActivityNew"
+            android:label="@string/title_activity_home_new" />
+        <activity android:name=".activity.SongDetailActivity" />
+        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.Language" />
+        <activity android:name=".activity.AlbumsActivity" />
+        <activity
+            android:name=".activity.SongActivity"
+            android:parentActivityName=".activity.HomeActivityNew" />
+        <activity android:name="phonenumberui.CountryCodeActivity" />
+        <activity android:name="phonenumberui.PhoneNumberActivity" />
+        <activity android:name="phonenumberui.VerificationCodeActivity" />
+    </application>
+
+</manifest>

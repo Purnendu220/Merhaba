@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="phonenumberui.PhoneNumberActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_page_bg"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+       >
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_light_bg" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:textColor="@color/textColorHead"
+            android:text="يرجى إدخال رقم الهاتف الخاص بك"
+            android:textSize="20sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_edit_text"
+            android:paddingLeft="@dimen/margin_5"
+            >
+
+            <LinearLayout
+                android:id="@+id/ll_cc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/flag_imv"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true" />
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/etCountryCode"
+                        android:layout_margin="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textColorHead"
+                        android:layout_alignParentLeft="true"
+                        android:backgroundTint="@android:color/transparent"
+                        android:focusable="false"
+                        android:hint="@string/code_ar"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:background="@color/colorPrimary"
+                    android:visibility="gone"
+                    />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/etPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textColorHead"
+                android:layout_toRightOf="@+id/ll_cc"
+                android:backgroundTint="@android:color/transparent"
+                android:digits="0123456789"
+                android:inputType="phone"
+                android:paddingEnd="4dp"
+                android:paddingStart="4dp"
+                />
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnSendConfirmationCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corner_red_rectangle"
+            android:padding="6dp"
+            android:text="@string/send_confirmation_code_ar"
+            android:textAllCaps="false"
+            android:textColor="@color/backgroundLight"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:layout_alignParentBottom="true"
+    android:background="@drawable/ic_rounded_bottom"
+    >
+    <ImageView
+        android:id="@+id/img_marhaba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_marhaba_ico_full"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_10"
+        >
+
+
+    </ImageView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/img_marhaba"
+        android:layout_marginTop="@dimen/margin_20"
+        android:text="Best waiting ringtones 2021"
+        android:textStyle="bold"
+
+        ></TextView>
+
+    <ImageView
+        android:id="@+id/img_marhaba_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_login_page_txt_ico"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:layout_above="@+id/textBottom"
+        >
+
+
+    </ImageView>
+    <TextView
+        android:id="@+id/textBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:text="Best waiting ringtones 2021"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+
+        ></TextView>
+
+
+
+</RelativeLayout>
+</RelativeLayout>

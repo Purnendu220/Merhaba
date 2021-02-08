@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_marginLeft="@dimen/margin_4"
+    android:layout_marginTop="@dimen/margin_4"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+
+
+<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_20"
+    android:layout_centerHorizontal="true"
+    >
+    <ImageView
+        android:id="@+id/imageViewClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cat_islamic_ico" />
+
+    <TextView
+        android:id="@+id/textViewCategoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/transparent"
+        android:drawableTint="@color/theme_dark_text"
+        android:elevation="@dimen/margin_5"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:padding="@dimen/margin_10"
+        android:text="Yoga"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_s_medium"
+        android:layout_centerHorizontal="true"
+
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/margin_10"
+
+        />
+</FrameLayout>
+
+
+
+
+
+
+
+</RelativeLayout>

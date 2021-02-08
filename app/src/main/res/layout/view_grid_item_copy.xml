@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_marginLeft="@dimen/margin_4"
+    android:layout_marginTop="@dimen/margin_4"
+    android:layout_width="180dp"
+    android:layout_height="100dp"
+    android:background="@drawable/transparent"
+    >
+    <android.support.v7.widget.CardView
+        android:layout_width="180dp"
+        android:layout_height="100dp"
+        android:elevation="@dimen/margin_5"
+        app:cardCornerRadius="@dimen/margin_5"
+        android:background="@drawable/transparent"
+        >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewClass"
+                style="@style/CardViewProfileLarge"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageViewClass"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/slide1" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@color/black_transparent" />
+
+            </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/margin_10"
+                android:background="@drawable/transparent"
+                android:elevation="@dimen/margin_30"
+
+                >
+                <TextView
+                    android:id="@+id/textViewSongName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="jfsjhg g hskdjg hhjh kjghskj "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_large"
+                    android:textAllCaps="true"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardViewClass"
+                    />
+
+                <TextView
+                    android:id="@+id/textViewArtistName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Aatif Aslam"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_small"
+                    />
+                <TextView
+                    android:id="@+id/textViewAlbum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="kjfhskjhfh"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_small"
+                    />
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/textViewPlay"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/blue_button_bottom_corners_new"
+        android:drawableTint="@color/theme_dark_text"
+        android:elevation="@dimen/margin_5"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="@dimen/margin_8"
+        android:text="Play"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_s_medium"
+        android:visibility="visible"
+        android:layout_alignParentBottom="true" />
+
+
+
+</RelativeLayout>

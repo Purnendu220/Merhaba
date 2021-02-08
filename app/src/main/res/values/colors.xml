@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#6A046A</color>
+
+    <color name="colorAccentTrans">#506A046A</color>
+
+    <color name="textColorAccent">#B707B7</color>
+
+    <color name="textColorHead">#000</color>
+    <color name="backgroundLight">#fff</color>
+    <color name="textColorHeading">#121111</color>
+    <color name="menuColor">#6A046A</color>
+    <color name="theme_dark_light_text">#262626</color>
+    <color name="theme_medium_text">#262626</color>
+    <color name="black_transparent">#00000000</color>
+    <color name="theme_dark_text">#262626</color>
+    <color name="white">#ffffff</color>
+    <color name="gray">#989898</color>
+    <color name="theme_medium_dark_text">#262626</color>
+    <color name="separator">#f1f0ee</color>
+    <color name="float_transparent">#00000000</color>
+    <color name="separatorPink">#E5C9E2</color>
+    <color name="theme_light_text">#c7cfd4</color>
+    <color name="theme_bg">#f1f0ee</color>
+    <color name="theme_search">#fafafa</color>
+
+    <drawable name="transparent">#00000000</drawable>
+    <drawable name="layer">#80000000</drawable>
+
+</resources>

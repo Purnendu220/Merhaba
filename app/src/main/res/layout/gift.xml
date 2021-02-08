@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="350dp"
+    android:layout_height="250dp"
+    android:background="@color/backgroundLight"
+    android:padding="5dp"
+    android:layout_gravity="center">
+    <TextView
+        android:id="@+id/txtclose"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/cardview_dark_background"
+        android:text="X"
+        android:textStyle="bold"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:background="@color/backgroundLight"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" .الرجاء إدخال رقم الهاتف المحمول الذي ترغب في إهدائه هذه الرنة"
+            android:textStyle="bold"
+            android:textColor="@color/cardview_dark_background"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/etPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:paddingTop="40dp"
+        android:textColor="@color/textColorHead"
+        android:backgroundTint="@color/colorAccent"
+        android:digits="0123456789"
+        android:inputType="phone"
+        android:paddingEnd="4dp"
+        android:width="200dp"
+        android:textSize="14dp"
+        android:paddingStart="4dp"
+        android:text="+218-"
+        />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:background="@color/backgroundLight"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="100dp">
+
+            <Button
+                android:id="@+id/btnGift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="إرسال"
+                android:layout_marginTop="25dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/menuColor"
+                android:textColor="@color/backgroundLight"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

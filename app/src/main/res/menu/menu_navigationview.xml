@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+        <item
+            android:id="@+id/shareApp"
+            android:checkable="true"
+            android:icon="@drawable/ic_action_share"
+            android:title="@string/share_the_app_ar"
+            android:iconTint="@color/menuColor"/>
+
+        <item
+            android:id="@+id/logout"
+            android:checkable="true"
+            android:title="@string/logout_ar"
+            android:icon="@drawable/ic_action_logout"
+            />
+
+
+
+</menu>
