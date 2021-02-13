@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "791961805905",
+    "project_id": "marhaba-a7241",
+    "storage_bucket": "marhaba-a7241.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791961805905:android:fcdbb7ea2c09e35b320470",
+        "android_client_info": {
+          "package_name": "com.wpits.merhaba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791961805905-k7k9f9k2qr9f0j7j8sgn5uvgf6iv1307.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAqIuptp5BnyLY5ACw9Fn2XBv7r57PRCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791961805905-k7k9f9k2qr9f0j7j8sgn5uvgf6iv1307.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,69 @@
+package com.wpits.merhaba.remoteConfig;
+
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.wpits.merhaba.R;
+
+
+public class RemoteConfigure {
+    FirebaseRemoteConfig mFirebaseRemoteConfig;
+    FirebaseRemoteConfigSettings configSettings;
+    private Context context;
+    public static RemoteConfigure firebaseRemoteConfigHelper;
+    private String TAG = "RemoteConfigure";
+
+    public static final String bannerJson="BANNER_JSON";
+
+
+
+    public static RemoteConfigure getFirebaseRemoteConfig(Context mContext) {
+        if (firebaseRemoteConfigHelper == null) {
+            firebaseRemoteConfigHelper = new RemoteConfigure(mContext);
+        }
+        return firebaseRemoteConfigHelper;
+    }
+    public RemoteConfigure(Context mContext) {
+        this.context = mContext;
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+         configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(3600)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_configure_defaults);
+
+    }
+
+    public void fetchRemoteConfig() {
+        mFirebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener((Activity) context, new OnCompleteListener<Boolean>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Boolean> task) {
+                        if (task.isSuccessful()) {
+                            boolean updated = task.getResult();
+                            Log.d(TAG, "Config params updated: " + updated);
+
+
+                        }
+                    }
+                });
+
+
+
+
+    }
+
+
+
+
+    public String getRemoteConfigValue(String key){
+        return mFirebaseRemoteConfig.getString(key);
+    }
+}

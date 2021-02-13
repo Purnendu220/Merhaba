@@ -33,6 +33,7 @@ import com.example.jean.jcplayer.JcPlayerManagerListener;
 import com.example.jean.jcplayer.general.JcStatus;
 import com.example.jean.jcplayer.model.JcAudio;
 import com.example.jean.jcplayer.view.JcPlayerView;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.gson.JsonObject;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.activity.PlayerActivity;
@@ -40,12 +41,16 @@ import com.wpits.merhaba.activity.SongActivity;
 import com.wpits.merhaba.adapter.AdapterCallbacks;
 import com.wpits.merhaba.adapter.CategoryViewDataAdapter;
 import com.wpits.merhaba.adapter.HomeAdapter;
+import com.wpits.merhaba.adapter.MainSliderAdapter;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.AddToFavRequest;
+import com.wpits.merhaba.model.BannerData;
+import com.wpits.merhaba.model.BannerModel;
 import com.wpits.merhaba.model.CategoryListModel;
 import com.wpits.merhaba.model.album.Song;
 import com.wpits.merhaba.model.category.Category;
+import com.wpits.merhaba.remoteConfig.RemoteConfigure;
 import com.wpits.merhaba.utility.Utility;
 import com.wpits.merhaba.utils.MySingleton;
 import com.wpits.merhaba.utils.ViewPagerFragmentSelection;
@@ -60,6 +65,7 @@ import java.util.List;
 
 import phonenumberui.PhoneNumberActivity;
 import pl.droidsonroids.gif.GifImageView;
+import ss.com.bannerslider.Slider;
 
 
 public class HomeFragment extends Fragment implements ViewPagerFragmentSelection, AdapterCallbacks<Object> {
@@ -73,6 +79,8 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
     HomeAdapter homeAdapter;
     GifImageView loader2;
     JcPlayerView jcplayerView;
+    BannerData bannerData;
+    Slider bannerSlider;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -83,6 +91,7 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
         recyclerViewMain = root.findViewById(R.id.recyclerViewMain);
         loader2 = root.findViewById(R.id.loader2);
         jcplayerView = root.findViewById(R.id.jcplayer);
+        bannerSlider = root.findViewById(R.id.banner_slider1);
         return root;
     }
     private void initRecyclerView(){
@@ -152,6 +161,11 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
         mContext=getActivity();
         initRecyclerView();
         getCategory();
+       String bannerList =  RemoteConfigure.getFirebaseRemoteConfig(mContext).getRemoteConfigValue(RemoteConfigure.bannerJson);
+       bannerData =JsonUtils.fromJson(bannerList, BannerData.class);
+        bannerSlider.setAdapter(new MainSliderAdapter(bannerData.getData()));
+
+
 
 
     }
