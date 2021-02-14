@@ -2,11 +2,9 @@ package com.wpits.merhaba.activity;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.wpits.merhaba.MainActivity;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.remoteConfig.RemoteConfigure;

@@ -2,16 +2,17 @@ package com.wpits.merhaba.activity.ui.player;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatEditText;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.widget.AppCompatEditText;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,13 +38,15 @@ import com.example.jean.jcplayer.general.JcStatus;
 import com.example.jean.jcplayer.model.JcAudio;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-import com.wpits.merhaba.MainActivity;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.activity.PlayerActivity;
 import com.wpits.merhaba.databinding.PlayerFragmentBinding;
+import com.wpits.merhaba.dialogs.CustomRateAlertDialog;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.AddToFavRequest;
+import com.wpits.merhaba.model.Datum;
+import com.wpits.merhaba.model.SongRatingResponse;
 import com.wpits.merhaba.model.album.Song;
 import com.wpits.merhaba.utility.Utility;
 import com.wpits.merhaba.utils.AppConstant;
@@ -61,6 +64,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import phonenumberui.PhoneNumberActivity;
+
 public class PlayerFragment extends Fragment implements View.OnClickListener {
 
    // private PlayerViewModel mViewModel;
@@ -77,10 +82,10 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
     Dialog myDialog;
     ProgressDialog dialog;
 
-    public static PlayerFragment newInstance(Song mSong) {
+    public static PlayerFragment newInstance(Song mSong,int position ) {
         PlayerFragment fragment = new PlayerFragment();
         Bundle args = new Bundle();
-        args.putInt(AppConstant.NAVIGATED_FROM_INT, 0);
+        args.putInt(AppConstant.NAVIGATED_FROM_INT, position);
         args.putSerializable(AppConstant.SONG_DATA,mSong);
         fragment.setArguments(args);
         return fragment;
@@ -101,7 +106,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
         navigatedFrom = getArguments().getInt(AppConstant.NAVIGATED_FROM_INT, 0);
         mSong = (Song) getArguments().getSerializable(AppConstant.SONG_DATA);
         isSuffleOn =  ((PlayerActivity)getActivity()).isSuffleOn;
-        myDialog = new Dialog(mContext);
+        myDialog = new Dialog(mContext,R.style.AdvanceDialogTheme);
+
 
         setupData();
         Log.d(TAG,mSong.getSongNameEn());
@@ -141,6 +147,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
 
         }
         Log.d(TAG,mSong.getSongNameEn());
+        binding.songRating.setVisibility(View.GONE);
+        binding.rateSong.setOnClickListener(this);
 
     }
 
@@ -148,8 +156,12 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
     { isSuffleOn = ((PlayerActivity)getActivity()).toggleSuffle();
     }
 
-    private void play(Song mSong){
-       binding.jcplayer.kill();
+    public void play(final Song mSong){
+        getSongRating(mSong);
+
+        binding.progressBarDone.setVisibility(View.VISIBLE);
+        binding.imagePlayPause.setVisibility(View.GONE);
+        binding.jcplayer.kill();
         binding.jcplayer.setVisibility(View.GONE);
         ArrayList<JcAudio> jcAudios = new ArrayList<>();
         JcAudio jcAudio;
@@ -180,6 +192,10 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
                         binding.jcplayer.setActivated(false);
                         binding.jcplayer.setVisibility(View.GONE);
                         binding.jcplayer.kill();
+                        if(((PlayerActivity)getActivity()).isRepeatOn){
+                            play(mSong);
+                            return;
+                        }
                         ((PlayerActivity)getActivity()).openNextSong();
                     }
                 });
@@ -237,7 +253,10 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void run() {
+                if(dialog!=null)
                 dialog.dismiss();
+
+                binding.progressBarDone.setVisibility(View.GONE);
                 binding.imagePlayPause.setVisibility(View.VISIBLE);
                 binding.txtProgressTime.setText(Utility.timeinMinute(jcStatus.getCurrentPosition()));
                 binding.txtTotalProgress.setText(Utility.timeinMinute(jcStatus.getDuration()));
@@ -245,6 +264,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
                 timeLeft = jcStatus.getDuration();
                 trackProgress();
                 binding.jcplayer.createNotification();
+                binding.imagePlayPause.setImageDrawable(mContext.getDrawable(R.drawable.ic_pause));
+
 
             }
         });
@@ -279,8 +300,27 @@ private void trackProgress(){
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.rateSong:
+                if(PrefrenceManager.getInstance().isLoggedIn()){
+                    Song song =((PlayerActivity)getActivity()).viewPagerAdapter.getCurrentSong(navigatedFrom);
+                    new CustomRateAlertDialog(mContext,song).show();
+
+                }else{
+                    Intent i = new Intent(mContext, PhoneNumberActivity.class);
+                    startActivity(i);
+                    getActivity().finish();
+                }
+                break;
             case R.id.imageRepeat:
                 ((PlayerActivity)getActivity()).toggleRepeat();
+                Toast.makeText(mContext,((PlayerActivity)getActivity()).isRepeatOn?"Repeat is On":"Repeat is Off",Toast.LENGTH_LONG).show();
+                if(((PlayerActivity)getActivity()).isRepeatOn){
+                    binding.imageRepeat.setImageDrawable(mContext.getDrawable(R.drawable.ic_repeat_off));
+
+                }else{
+                    binding.imageRepeat.setImageDrawable(mContext.getDrawable(R.drawable.ic_repeat));
+
+                }
                 break;
             case R.id.imagePrev:
                 binding.jcplayer.kill();
@@ -293,6 +333,15 @@ private void trackProgress(){
                 break;
             case R.id.imagePlayShuffle:
                 toggleSuffle();
+                Toast.makeText(mContext,((PlayerActivity)getActivity()).isSuffleOn?"Shuffle is On":"Shuffle is Off",Toast.LENGTH_LONG).show();
+
+                if(((PlayerActivity)getActivity()).isSuffleOn){
+                    binding.imagePlayShuffle.setImageDrawable(mContext.getDrawable(R.drawable.ic_shuffle_off));
+
+                }else{
+                    binding.imagePlayShuffle.setImageDrawable(mContext.getDrawable(R.drawable.ic_shuffle));
+
+                }
                 break;
             case R.id.imagePlayPause:
                 if(binding.jcplayer.isPlaying()){
@@ -318,10 +367,17 @@ private void trackProgress(){
                 showPopup(binding.imageGetIt,mSong);
                 break;
             case R.id.addToFav:
-                if(mSong.getFavStatus()){
+                if(PrefrenceManager.getInstance().isLoggedIn()){
+
+                    if(mSong.getFavStatus()){
                     unfavRequest(mSong);
                 }else{
                     addToFavourite(mSong);
+                }
+                }else{
+                    Intent i = new Intent(mContext, PhoneNumberActivity.class);
+                    startActivity(i);
+                    getActivity().finish();
                 }
                 break;
         }
@@ -661,5 +717,70 @@ private void trackProgress(){
     public void onDestroy() {
         super.onDestroy();
         binding.jcplayer.kill();
+
+        Log.d("onPageSelected","onDestroy position:- "+navigatedFrom);
+
     }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isVisibleToUser) {
+            Log.d("onPageSelected","setUserVisibleHint position:- "+navigatedFrom +"isVisibleToUser: "+isVisibleToUser);
+            if(binding!=null)
+            binding.jcplayer.kill();
+
+
+        }
+
+    }
+    private void getSongRating(Song mSong){
+        String x="https://www.marhaba.com.ly:18086/crbt/v1/getRatingByTopContentId/"+ mSong.getSongId();
+        Log.d(TAG, "getSongRating: "+x);
+        JsonObjectRequest addToFavRequestRequest=new JsonObjectRequest(Request.Method.GET, x,null , new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("Rating Response",response.toString());
+                try {
+                    SongRatingResponse songResp = JsonUtils.fromJson(response.toString(),SongRatingResponse.class);
+                    if(songResp!=null&&songResp.getData()!=null&&songResp.getData().size()>0){
+                        Integer totalRating =0;
+                        for (Datum data:songResp.getData()) {
+                            totalRating +=data.getRating();
+                        }
+                        float avgRating = (float)(totalRating/songResp.getData().size());
+
+                        binding.songRating.setVisibility(View.VISIBLE);
+                        binding.songRating.setRating(avgRating);
+                    }
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("RatingErrorResponse",error.toString());
+
+            }
+
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+
+        MySingleton.getInstance(mContext).addToRequest(addToFavRequestRequest);
+    }
+
 }

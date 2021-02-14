@@ -8,7 +8,7 @@
     android:layout_height="100dp"
     android:background="@drawable/transparent"
     >
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="180dp"
         android:layout_height="100dp"
         android:elevation="@dimen/margin_5"
@@ -21,7 +21,7 @@
             android:orientation="vertical"
             >
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewClass"
                 style="@style/CardViewProfileLarge"
                 android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                     android:scaleType="centerCrop"
                     android:src="@color/black_transparent" />
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
 
 
         </FrameLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 
     <TextView

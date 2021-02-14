@@ -1,15 +1,14 @@
 package com.wpits.merhaba.adapter.viewholder;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Html;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wpits.merhaba.R;
-import com.wpits.merhaba.activity.PlayerActivity;
 import com.wpits.merhaba.adapter.AdapterCallbacks;
 import com.wpits.merhaba.adapter.AdapterGridView;
 import com.wpits.merhaba.model.CategoryListModel;

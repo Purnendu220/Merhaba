@@ -1,16 +1,14 @@
 package com.wpits.merhaba.utils;
 
 import android.content.res.Resources;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
-
-import com.wpits.merhaba.R;
 
 public class CirclePagerIndicatorDecoration extends RecyclerView.ItemDecoration {
     private int colorActive = 0xDE000000;

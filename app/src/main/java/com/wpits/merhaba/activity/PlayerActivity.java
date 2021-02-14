@@ -2,9 +2,9 @@ package com.wpits.merhaba.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,11 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.wpits.merhaba.R;
-import com.wpits.merhaba.adapter.AdapterCallbacks;
+import com.wpits.merhaba.activity.ui.player.PlayerFragment;
 import com.wpits.merhaba.adapter.PlayerViewPagerAdapter;
-import com.wpits.merhaba.adapter.ViewPagerAdapter;
-import com.wpits.merhaba.databinding.ActivityHomeNewBinding;
 import com.wpits.merhaba.databinding.ActivityPlayerBinding;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.album.Song;
@@ -42,7 +39,7 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
     ActivityPlayerBinding binding;
     Context context;
     boolean isArabic = Utility.isArabic;
-    private PlayerViewPagerAdapter viewPagerAdapter;
+    public PlayerViewPagerAdapter viewPagerAdapter;
     private List<Song> mListSongs = new ArrayList<>();
     private int INITIAL_POSITION = 0;
     public boolean isSuffleOn,isRepeatOn;
@@ -233,6 +230,7 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
             }
 
         }
+
         binding.viewPager.setCurrentItem(INITIAL_POSITION);
         binding.viewPager.setOnTouchListener(new View.OnTouchListener() {
 
@@ -240,6 +238,7 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
                 return true;
             }
         });
+        onPageSelected(INITIAL_POSITION);
     }
 
     public void openNextSong(){
@@ -278,6 +277,7 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
         isRepeatOn  = !isRepeatOn;
         return isRepeatOn;
     }
+
     public void  playNext(){
         if(binding.viewPager.getCurrentItem()<viewPagerAdapter.getCount()-1){
             binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem()+1);
@@ -305,6 +305,8 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int i) {
+        ((PlayerFragment)viewPagerAdapter.getCurrentItem(i)).play(viewPagerAdapter.getCurrentSong(i));
+       Log.d("onPageSelected","position:- "+i);
 
     }
 

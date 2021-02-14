@@ -5,22 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Transition;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -299,7 +296,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private List<Song> searchApi(String search) {
 
         final List<Song> songsList = new ArrayList<Song>();
-        String album_url = "https://www.marhaba.com.ly:18083/topContent/topContentByCtgId?ctgId="+"1";
+        String album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongName?songName="+search;
+        Log.d("Request --->",album_url);
+
         JsonObjectRequest albumRequest=new JsonObjectRequest(Request.Method.GET, album_url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

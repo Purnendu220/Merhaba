@@ -26,7 +26,7 @@
             android:background="@drawable/rounded_corner_white_rectangle_border_grey"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                 android:layout_marginStart="4dp"
                 android:src="@drawable/search" />
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etSearchCountry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
             android:background="@color/backgroundLight"
             android:dividerHeight="2dp" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvNoResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

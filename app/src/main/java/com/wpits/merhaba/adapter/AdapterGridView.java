@@ -1,7 +1,7 @@
 package com.wpits.merhaba.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +12,6 @@ import com.wpits.merhaba.adapter.viewholder.CategoryViewHoder;
 import com.wpits.merhaba.adapter.viewholder.EmptyViewHolder;
 import com.wpits.merhaba.adapter.viewholder.GridItemViewHolder;
 import com.wpits.merhaba.adapter.viewholder.LoaderViewHolder;
-import com.wpits.merhaba.adapter.viewholder.SongsViewHolder;
-import com.wpits.merhaba.model.CategoryListModel;
 import com.wpits.merhaba.model.ListLoader;
 import com.wpits.merhaba.model.category.Category;
 

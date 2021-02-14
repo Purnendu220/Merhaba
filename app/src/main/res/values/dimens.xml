@@ -61,5 +61,9 @@
     <dimen name="margin_50">50dp</dimen>
     <dimen name="tool_bar_height">56dp</dimen>
     <dimen name="action_bar_elevation">2dp</dimen>
+    <dimen name="margin_14">14dp</dimen>
+    <dimen name="button_height_normal">40dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
     <item name="button_letter_spacing_very_little" format="float" type="dimen">-0.01</item>
+    <item name="button_letter_spacing" type="dimen" format="float">0.04</item>
 </resources>

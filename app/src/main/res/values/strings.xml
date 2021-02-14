@@ -1094,5 +1094,8 @@
     <string name="login">Login</string>
     <string name="ringtone_id">Ringtone ID: %s</string>
     <string name="search">Search</string>
+    <string name="how_was_this_song">How was %s song?</string>
+    <string name="submit_rating">Submit Rating</string>
+    <string name="remarks">Remarks</string>
 
 </resources>

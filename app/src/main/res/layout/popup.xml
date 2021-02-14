@@ -3,9 +3,11 @@
     android:orientation="vertical"
     android:layout_width="350dp"
     android:layout_height="350dp"
-    android:background="@color/backgroundLight"
     android:padding="5dp"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background="@drawable/bg_round_popup"
+
+    >
     <TextView
         android:id="@+id/txtclose"
         android:layout_width="30dp"

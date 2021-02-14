@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.wpits.merhaba.R;
@@ -21,6 +22,10 @@ public class RemoteConfigure {
     private String TAG = "RemoteConfigure";
 
     public static final String bannerJson="BANNER_JSON";
+    public static final String top_twenty_en="Top_Twenty_En";
+    public static final String top_twenty_ar="Top_Twenty_Ar";
+    public static final String new_arrival_en="New_Arrival_En";
+    public static final String new_arrival_ar="New_Arrival_Ar";
 
 
 
@@ -32,6 +37,7 @@ public class RemoteConfigure {
     }
     public RemoteConfigure(Context mContext) {
         this.context = mContext;
+
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
          configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .setMinimumFetchIntervalInSeconds(3600)

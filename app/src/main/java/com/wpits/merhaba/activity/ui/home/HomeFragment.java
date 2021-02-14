@@ -1,27 +1,22 @@
 package com.wpits.merhaba.activity.ui.home;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,24 +24,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.jean.jcplayer.JcPlayerManagerListener;
-import com.example.jean.jcplayer.general.JcStatus;
-import com.example.jean.jcplayer.model.JcAudio;
 import com.example.jean.jcplayer.view.JcPlayerView;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.gson.JsonObject;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.activity.PlayerActivity;
-import com.wpits.merhaba.activity.SongActivity;
 import com.wpits.merhaba.adapter.AdapterCallbacks;
-import com.wpits.merhaba.adapter.CategoryViewDataAdapter;
 import com.wpits.merhaba.adapter.HomeAdapter;
 import com.wpits.merhaba.adapter.MainSliderAdapter;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.AddToFavRequest;
 import com.wpits.merhaba.model.BannerData;
-import com.wpits.merhaba.model.BannerModel;
 import com.wpits.merhaba.model.CategoryListModel;
 import com.wpits.merhaba.model.album.Song;
 import com.wpits.merhaba.model.category.Category;
@@ -55,7 +42,6 @@ import com.wpits.merhaba.utility.Utility;
 import com.wpits.merhaba.utils.MySingleton;
 import com.wpits.merhaba.utils.ViewPagerFragmentSelection;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,12 +112,14 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
                         Log.d("CategoryResponse2", String.valueOf(categoryObject.getInt("id")));
                         Log.d("CategoryResponse -->", category.getCategoryName()+" "+category.getId());
                         if(i<2){
+
                             homeAdapter.addClass(category);
-                        }
-                        else{
+                        }else{
                             allSampleData.add(category);
 
                         }
+
+
 
                     }
                     homeAdapter.addCategoryListModel(new CategoryListModel(allSampleData));

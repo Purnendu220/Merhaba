@@ -140,16 +140,32 @@
            android:layout_marginLeft="@dimen/margin_20"
            android:layout_marginRight="@dimen/margin_20"
            >
-           <RatingBar
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               style= "@style/CustomRatingBar"
-               android:id="@+id/ratingBar"
-               android:numStars="5"
-               android:stepSize="0.01"
-               android:isIndicator="true"
-               android:visibility="gone"
+           <me.zhanghai.android.materialratingbar.MaterialRatingBar
+               android:id="@+id/songRating"
+               style="@style/Widget.MaterialRatingBar.RatingBar"
+               android:layout_width="100dp"
+               android:layout_height="20dp"
+               app:mrb_progressTint="@color/colorAccent"
+               app:mrb_secondaryProgressTint="@color/colorAccent"
+               android:layout_centerVertical="true"
+
                />
+
+           <Button
+               android:id="@+id/rateSong"
+               android:layout_width="@dimen/margin_40"
+               android:layout_height="@dimen/margin_20"
+               android:background="@drawable/rectangular_border"
+               android:text="Rate"
+               android:textSize="8sp"
+               android:textColor="@color/colorAccent"
+               android:layout_toRightOf="@id/songRating"
+               android:layout_centerVertical="true"
+
+               ></Button>
+
+
+
            <ImageView
                android:id="@+id/imageFav"
                android:layout_width="wrap_content"
@@ -158,6 +174,8 @@
                android:layout_weight="1"
                android:padding="@dimen/margin_10"
                android:layout_alignParentEnd="true"
+               android:layout_centerVertical="true"
+
                ></ImageView>
 
 
@@ -201,9 +219,17 @@
                android:layout_weight="1"
                android:padding="@dimen/margin_10"
                android:src="@drawable/ic_play"
-               android:visibility="visible"
+               android:visibility="gone"
 
                ></ImageView>
+           <ProgressBar
+               android:id="@+id/progressBarDone"
+               android:layout_width="0dp"
+               android:layout_height="34dp"
+               android:layout_weight="1"
+               android:indeterminateTint="@color/colorAccent"
+               android:layout_gravity="center"
+               android:visibility="visible" />
 
 
            <ImageView

@@ -24,7 +24,7 @@
         >
 
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -42,7 +42,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etDigit1"
                 style="@style/etDigits"
                 android:textColor="@color/textColorHead"
@@ -50,7 +50,7 @@
                 android:background="@drawable/rounded_edit_text"
                 />
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etDigit2"
                 style="@style/etDigits"
                 android:textColor="@color/textColorHead"
@@ -60,7 +60,7 @@
 
                 />
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etDigit3"
                 style="@style/etDigits"
                 android:textColor="@color/textColorHead"
@@ -70,7 +70,7 @@
 
                 />
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etDigit4"
                 style="@style/etDigits"
                 android:textColor="@color/textColorHead"
@@ -81,14 +81,14 @@
 
                 />
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etDigit5"
                 style="@style/etDigits"
                 android:textColor="@color/textColorHead"
                 android:visibility="gone"
                 android:nextFocusDown="@+id/etDigit6" />
 
-            <android.support.v7.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etDigit6"
                 android:visibility="gone"
                 android:textColor="@color/textColorHead"
@@ -105,7 +105,7 @@
             android:background="@drawable/rounded_corner_red_rectangle"
             android:gravity="center">
 
-            <android.support.v7.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnContinue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
          android:layout_marginLeft="@dimen/margin_20"
          android:id="@+id/textDidntReceivedCode"
          ></TextView>
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvCountDownTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
         android:layout_marginRight="@dimen/margin_20"
         >
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnResendCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -3,10 +3,27 @@
 <defaultsMap>
     <entry>
         <key>BANNER_JSON</key>
-        <value>["","","",""]
+        <value>{"data":[{"id":1,"url":"https://wws.marhaba.com.ly//contents//crbt_tones//Roh3//local//112.jpg"},{"id":2,"url":"https://wws.marhaba.com.ly//contents//crbt_tones//Roh3//local//112.jpg"},{"id":3,"url":"https://wws.marhaba.com.ly//contents//crbt_tones//Roh3//local//112.jpg"},{"id":4,"url":"https://wws.marhaba.com.ly//contents//crbt_tones//Roh3//local//112.jpg"}]}
         </value>
     </entry>
-
+    <entry>
+        <key>Top_Twenty_En</key>
+        <value>Top 20</value>
+    </entry>
+    <entry>
+        <key>Top_Twenty_Ar</key>
+        <value>أفضل 20</value>
+    </entry>
+    <entry>
+        <key>New_Arrival_En</key>
+        <value>New Arrival
+        </value>
+    </entry>
+    <entry>
+        <key>New_Arrival_Ar</key>
+        <value>قادم جديد
+        </value>
+    </entry>
 
 
 </defaultsMap>
