@@ -43,7 +43,7 @@ import java.util.Map;
 public class CustomRateAlertDialog extends Dialog implements OnClickListener {
     private Context mContext;
     private Song model;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
     private DialogRateClassBinding dataBinding;
     private int songRating = 0;
 
@@ -177,7 +177,7 @@ public class CustomRateAlertDialog extends Dialog implements OnClickListener {
             public void onResponse(JSONObject response) {
                 Log.d("Rating Response",response.toString());
                 try {
-                    Toast.makeText(mContext,"Song rated",Toast.LENGTH_LONG);
+                    Toast.makeText(mContext,"Song rated successfully",Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                     dismiss();
 
@@ -188,6 +188,8 @@ public class CustomRateAlertDialog extends Dialog implements OnClickListener {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(mContext,"Error While Rating song "+error.toString(),Toast.LENGTH_LONG).show();
+
                 Log.d("RatingErrorResponse",error.toString());
                 dialog.dismiss();
                 dismiss();

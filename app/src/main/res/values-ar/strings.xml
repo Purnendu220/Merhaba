@@ -1,32 +1,32 @@
 <resources>
-    <string name="app_name">Marhaba</string>
-    <string name="select_language">Select Language</string>
-    <string name="profile">Profile</string>
-    <string name="settings">Settings</string>
-    <string name="share_the_app">Share the App</string>
-    <string name="logout">Logout</string>
-    <string name="drawer_open">Open</string>
-    <string name="drawer_close">Close</string>
-    <string name="see_all">SEE ALL</string>
+    <string name="app_name">مرحبا</string>
+    <string name="select_language">اختار اللغة</string>
+    <string name="profile">حساب تعريفي</string>
+    <string name="settings">إعدادات</string>
+    <string name="share_the_app">شارك التطبيق</string>
+    <string name="logout">تسجيل خروج</string>
+    <string name="drawer_open">فتح</string>
+    <string name="drawer_close">قريب</string>
+    <string name="see_all"> اظهار الكل</string>
     <string name="login_username">UserMsisdn</string>
-    <string name="sign_in">Submit</string>
-    <string name="login_pass">Enter OTP</string>
+    <string name="sign_in">يقدم</string>
+    <string name="login_pass">أدخل OTP</string>
 
 
-    <string name="search_hint_ar">Search Country</string>
-    <string name="no_result_found_ar">No results found</string>
-    <string name="code">Enter OTP </string>
+    <string name="search_hint_ar">بحث البلد</string>
+    <string name="no_result_found_ar">لم يتم العثور على نتائج</string>
+    <string name="code">أدخل OTP </string>
 
 
     <string name="phone_code" translatable="false">+%s</string>
     <string name="country_name_and_code" translatable="false">%1$s (%2$s)</string>
     <string name="search_hint">Search&#8230;</string>
-    <string name="no_result_found">No result found</string>
-    <string name="select_country">Select county</string>
+    <string name="no_result_found">لم يتم العثور على نتائج</string>
+    <string name="select_country">حدد المقاطعة</string>
     <string name="country_code_and_phone_code">(%1$s) +%2$s</string>
     <string name="country_full_name_and_phone_code">%1$s +%2$s</string>
     <string name="error_unregister_carrier_number">EditText for carrier number is not registered. Register it using registerPhoneNumberTextView() before getFullNumber() or setFullNumber().</string>
-    <string name="message_something_wrong">Something went wrong.Please try again later.</string>
+    <string name="message_something_wrong">هناك شئ خاطئ، يرجى المحاولة فى وقت لاحق.</string>
 
 
     <!--NEW ADD-->
@@ -1066,45 +1066,48 @@
     <string name="country_zimbabwe_name">Zimbabwe</string>
     <string name="country_zimbabwe_code">zw</string>
     <string name="country_zimbabwe_number" translatable="false">263</string>
-    <string name="send_confirmation_code">Send Confirmation Code</string>
-    <string name="_continue">Continue</string>
-    <string name="we_sent_you_a_6_digit_code">We sent you a 6-digit code.</string>
-    <string name="select_language_ar">Choose the language</string>
-    <string name="code_ar">Enter the code</string>
-    <string name="send_confirmation_code_ar">Send a unique code via SMS</string>
-    <string name="we_sent_you_a_6_digit_code_ar">We have sent you a 6-digit code via SMS</string>
-    <string name="enter_otp_code">Enter OTP code</string>
 
-    <string name="_continue_ar">Continue</string>
-    <string name="settings_ar">Language settings</string>
-    <string name="share_the_app_ar">Share the app</string>
-    <string name="logout_ar">Log out</string>
-    <string name="profile_ar">Details</string>
-    <string name="required_error">This is required</string>
-    <string name="no_more_songs">No more songs</string>
-    <string name="didnt_receive_code">Didn\'t receive code?</string>
+
+
+    <string name="send_confirmation_code">إرسال رمز التأكيد</string>
+    <string name="_continue">يكمل</string>
+    <string name="we_sent_you_a_6_digit_code">أرسلنا لك رمزًا مكونًا من 6 أرقام.</string>
+    <string name="select_language_ar">اختار اللغة</string>
+    <string name="code_ar">ادخل الرمز</string>
+    <string name="send_confirmation_code_ar">إرسال رمز فريد عبر الرسائل القصيرة</string>
+    <string name="we_sent_you_a_6_digit_code_ar">لقد أرسلنا إليك رمزًا مكونًا من 6 أرقام عبر الرسائل القصيرة</string>
+    <string name="enter_otp_code">أدخل رمز OTP</string>
+
+    <string name="_continue_ar">استمر</string>
+    <string name="settings_ar">اعدادات اللغة</string>
+    <string name="share_the_app_ar">شارك التطبيق</string>
+    <string name="logout_ar">تسجيل خروج</string>
+    <string name="profile_ar">تفاصيل</string>
+    <string name="required_error">هذا مطلوب</string>
+    <string name="no_more_songs">لا مزيد من الأغاني</string>
+    <string name="didnt_receive_code">ألم تتلق رمز؟</string>
     <string name="title_activity_home_new">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_settings">Settings</string>
-    <string name="title_category">Categories</string>
-    <string name="title_favourite">Favourite</string>
-    <string name="title_more">More</string>
-    <string name="login">Login</string>
-    <string name="ringtone_id">Ringtone ID: %s</string>
-    <string name="search">Search</string>
-    <string name="how_was_this_song">How was %s song?</string>
-    <string name="submit_rating">Submit Rating</string>
-    <string name="remarks">Remarks</string>
-    <string name="change_app_lang">Change app language</string>
-    <string name="english">English</string>
-    <string name="arabic">Arabic</string>
-    <string name="please_enter_detail">Please enter your phone number</string>
-    <string name="best_of_year">Best waiting rangoon\'s 2021</string>
-    <string name="song_gifted_successfully">Song gifted successfully.</string>
-    <string name="play">Play</string>
-    <string name="rate">Rate</string>
-    <string name="songs">Songs</string>
+    <string name="title_home">الصفحة الرئيسية</string>
+    <string name="title_dashboard">لوحة القيادة</string>
+    <string name="title_notifications">إشعارات</string>
+    <string name="title_settings">إعدادات</string>
+    <string name="title_category">فئات</string>
+    <string name="title_favourite">المفضل</string>
+    <string name="title_more">أكثر</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="ringtone_id">معرف نغمة الرنين: %s</string>
+    <string name="search">بحث</string>
+    <string name="how_was_this_song">كيف كانت أغنية %s؟</string>
+    <string name="submit_rating">إرسال التقييم</string>
+    <string name="remarks">ملاحظات</string>
+    <string name="change_app_lang">تغيير لغة التطبيق</string>
+    <string name="english">الإنجليزية</string>
+    <string name="arabic">عربي</string>
+    <string name="please_enter_detail">يرجى إدخال رقم الهاتف الخاص بك</string>
+    <string name="best_of_year">أفضل نغمات انتظار 2021</string>
+    <string name="song_gifted_successfully">تم إهداء الأغنية بنجاح.</string>
+    <string name="play">استماع</string>
+    <string name="rate">قيم الأغنية</string>
+    <string name="songs">الرنّات</string>
 
 </resources>

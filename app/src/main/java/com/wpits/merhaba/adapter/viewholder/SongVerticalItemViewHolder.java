@@ -15,12 +15,12 @@ import com.wpits.merhaba.utility.Utility;
 public class SongVerticalItemViewHolder extends RecyclerView.ViewHolder {
 
 
-    public LinearLayout parent;
+    public LinearLayout parent,imgPlay;
 
-     ImageView imageViewClass,imgPlay,addToFav;
+     ImageView imageViewClass,addToFav;
      TextView textViewSongName,textViewArtistName;
     private final Context context;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
 
     public SongVerticalItemViewHolder(View itemView) {
         super(itemView);
@@ -47,7 +47,8 @@ public class SongVerticalItemViewHolder extends RecyclerView.ViewHolder {
             itemView.setVisibility(View.VISIBLE);
 
             if (isArabic) {
-                textViewSongName.setText(model.getSongsNameAr());
+                String songName = model.getSongNameAr()!=null?model.getSongNameAr():model.getSongsNameAr();
+                textViewSongName.setText(songName);
                 textViewArtistName.setText(model.getArtistNameAr());
             }
             else{
@@ -56,9 +57,6 @@ public class SongVerticalItemViewHolder extends RecyclerView.ViewHolder {
             }
 
 
-//            Picasso.get()
-//                    .load(model.getAlbumArt())
-//                    .into(imageViewClass);
 
             imgPlay.setOnClickListener(new View.OnClickListener() {
                 @Override

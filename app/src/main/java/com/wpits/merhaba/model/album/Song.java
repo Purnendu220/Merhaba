@@ -13,6 +13,10 @@ public class Song implements Serializable {
 
     private String songsNameAr;
 
+    private String songNameAr;
+
+
+
     private String contentPathLocation;
 
     private String artistName;
@@ -137,5 +141,17 @@ public class Song implements Serializable {
 
     public void setFavStatus(boolean favStatus) {
         this.favStatus = favStatus;
+    }
+
+    public String getSongNameAr() {
+        return songNameAr;
+    }
+
+    public void setSongNameAr(String songNameAr) {
+        this.songNameAr = songNameAr;
+    }
+
+    public boolean isFavStatus() {
+        return favStatus;
     }
 }

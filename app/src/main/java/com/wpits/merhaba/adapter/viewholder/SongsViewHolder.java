@@ -47,7 +47,7 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
 
 
     private final Context context;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
 
     public SongsViewHolder(View itemView) {
         super(itemView);

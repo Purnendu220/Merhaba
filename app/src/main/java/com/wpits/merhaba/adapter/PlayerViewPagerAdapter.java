@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.wpits.merhaba.activity.ui.player.PlayerFragment;
 import com.wpits.merhaba.model.album.Song;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public class PlayerViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private int tabsCount;
-    private List<Song> mSongsList;
+    private List<Song> mSongsList ;
     private PlayerFragment mCurrentFragment;
     private HashMap<Integer,Fragment> fragmentMap = new HashMap<>();
 

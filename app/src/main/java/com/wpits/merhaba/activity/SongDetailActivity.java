@@ -52,14 +52,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SongDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class SongDetailActivity extends BaseActivity implements View.OnClickListener {
 ImageView songImage;
 LinearLayout addToCart,palySong,addToFav,giftFriend;
 TextView txtSongName,songId,txtArtistName,txtCategoryName;
 Toolbar mToolbar;
 Song mSong;
 Dialog myDialog;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
   Context mContext;
   JcPlayerView jcplayerView;
 

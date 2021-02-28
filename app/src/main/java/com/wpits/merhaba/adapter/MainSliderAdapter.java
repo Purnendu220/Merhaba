@@ -16,7 +16,7 @@ public class MainSliderAdapter extends SliderAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return mList.size();
     }
 
     @Override

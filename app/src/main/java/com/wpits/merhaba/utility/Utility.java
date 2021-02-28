@@ -22,10 +22,15 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.wpits.merhaba.helper.PrefrenceManager;
+
 
 public class Utility {
-    public static boolean isArabic = false;
 
+
+    public static boolean isArabic(){
+        return PrefrenceManager.getInstance().getUserLanguage().equalsIgnoreCase("ar")?true:false;
+    }
     public static void hideKeyBoardFromView(Activity mActivity) {
         InputMethodManager inputMethodManager = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = mActivity.getCurrentFocus();

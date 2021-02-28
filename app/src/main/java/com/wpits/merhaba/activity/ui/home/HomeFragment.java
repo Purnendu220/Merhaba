@@ -57,7 +57,7 @@ import ss.com.bannerslider.Slider;
 public class HomeFragment extends Fragment implements ViewPagerFragmentSelection, AdapterCallbacks<Object> {
 
     private HomeViewModel homeViewModel;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
     private Toolbar mToolbar;
     RecyclerView recyclerViewMain;
     List<Category> allSampleData = new ArrayList<>();
@@ -106,9 +106,7 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
                         category=new Category();
                         category.setId(categoryObject.getInt("id"));
                         category.setCategoryName(categoryObject.getString("categoryName"));
-                        category.setCategoryNameAr(categoryObject.getString("categoryName"));
-                        categoryObject.getString("categoryNameAr");
-                        // albumApi(category.getId());
+                        category.setCategoryNameAr(categoryObject.getString("categoryNameAr"));
                         Log.d("CategoryResponse2", String.valueOf(categoryObject.getInt("id")));
                         Log.d("CategoryResponse -->", category.getCategoryName()+" "+category.getId());
                         if(i<2){

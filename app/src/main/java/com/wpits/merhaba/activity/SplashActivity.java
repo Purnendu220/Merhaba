@@ -11,7 +11,7 @@ import com.wpits.merhaba.remoteConfig.RemoteConfigure;
 
 import phonenumberui.PhoneNumberActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     private static int SPLASH_TIME_OUT = 3000;
 

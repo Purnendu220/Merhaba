@@ -63,6 +63,16 @@ public class PrefrenceManager {
     public boolean isLoggedIn() {
         return prefrence.getBoolean(AppConstant.Prefrences.USER_IS_LOGGED_IN,false);
     }
+    public void setUserLanguage(String s) {
+        prefrence.putString(AppConstant.Prefrences.USER_LANGUAGE,s);
+    }
+    public String getUserLanguage() {
+        return prefrence.getString(AppConstant.Prefrences.USER_LANGUAGE,AppConstant.Language.ARABIC);
+    }
+
+
+
+
     public void clearData(){
         prefrence.clear();
     }

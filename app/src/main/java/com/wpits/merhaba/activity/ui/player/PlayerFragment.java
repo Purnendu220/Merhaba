@@ -74,7 +74,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener {
     private static Song mSong;
     private int navigatedFrom;
     private boolean isSuffleOn;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
     private long totaltime;
     private long timeLeft;
     CountDownTimer timer;
@@ -569,6 +569,10 @@ private void trackProgress(){
             @Override
             public void onResponse(JSONObject response) {
                 progressDialog.dismiss();
+                if(myDialog!=null&&myDialog.isShowing()){
+                    myDialog.dismiss();
+                }
+                Toast.makeText(mContext,mContext.getResources().getString(R.string.song_gifted_successfully),Toast.LENGTH_LONG).show();
                 Log.d("Subscription", "onResponse: ****"+response);
                 Gson gson=new Gson();
                 //User already registered

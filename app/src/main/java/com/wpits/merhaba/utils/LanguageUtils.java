@@ -1,11 +1,17 @@
 package com.wpits.merhaba.utils;
 
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
+import android.os.LocaleList;
 import android.text.Html;
 import android.util.Log;
 import android.widget.TextView;
 
 
+import com.wpits.merhaba.helper.PrefrenceManager;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -71,6 +77,8 @@ public class LanguageUtils {
             textViewId.append(viewString);
 
     }
+
+
 
 
 }

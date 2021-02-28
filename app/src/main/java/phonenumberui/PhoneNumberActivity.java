@@ -59,6 +59,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.wpits.merhaba.MainActivity;
 import com.wpits.merhaba.R;
+import com.wpits.merhaba.activity.BaseActivity;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.utils.ApplicationUrls;
@@ -76,7 +77,7 @@ import io.michaelrocks.libphonenumber.android.NumberParseException;
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
 import io.michaelrocks.libphonenumber.android.Phonenumber;
 
-public class PhoneNumberActivity extends AppCompatActivity {
+public class PhoneNumberActivity extends BaseActivity {
 
     private AppCompatEditText etCountryCode;
     private AppCompatEditText etPhoneNumber;

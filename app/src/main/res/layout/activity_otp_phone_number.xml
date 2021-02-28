@@ -28,7 +28,7 @@
             android:background="@android:color/transparent"
             android:gravity="center"
             android:textColor="@color/textColorHead"
-            android:text="يرجى إدخال رقم الهاتف الخاص بك"
+            android:text="@string/please_enter_detail"
             android:textSize="20sp" />
 
         <RelativeLayout
@@ -91,7 +91,6 @@
                 android:textColor="@color/textColorHead"
                 android:layout_toRightOf="@+id/ll_cc"
                 android:backgroundTint="@android:color/transparent"
-                android:digits="0123456789"
                 android:inputType="phone"
                 android:paddingEnd="4dp"
                 android:paddingStart="4dp"
@@ -139,7 +138,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/img_marhaba"
         android:layout_marginTop="@dimen/margin_20"
-        android:text="Best waiting ringtones 2021"
+        android:text="@string/best_of_year"
         android:textStyle="bold"
 
         ></TextView>
@@ -163,7 +162,7 @@
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/margin_20"
-        android:text="Best waiting ringtones 2021"
+        android:text="@string/best_of_year"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
 

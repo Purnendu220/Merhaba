@@ -1,7 +1,9 @@
 package com.wpits.merhaba.activity.ui.favourite;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,6 +45,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
 public class FavouriteFragment extends Fragment implements ViewPagerFragmentSelection, AdapterCallbacks<Object> {
@@ -209,5 +213,7 @@ public class FavouriteFragment extends Fragment implements ViewPagerFragmentSele
 
         MySingleton.getInstance(mContext).addToRequest(addToFavRequestRequest);
     }
+
+
 
 }

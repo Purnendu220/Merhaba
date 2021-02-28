@@ -26,7 +26,7 @@ public class CategoryViewHoder extends RecyclerView.ViewHolder {
     public LinearLayout parent;
 
     private final Context context;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
 
     public CategoryViewHoder(View itemView) {
         super(itemView);

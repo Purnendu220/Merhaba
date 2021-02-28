@@ -6,6 +6,7 @@ import android.content.Intent;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,10 +36,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+import phonenumberui.PhoneNumberActivity;
+
+public class PlayerActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
     ActivityPlayerBinding binding;
     Context context;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
     public PlayerViewPagerAdapter viewPagerAdapter;
     private List<Song> mListSongs = new ArrayList<>();
     private int INITIAL_POSITION = 0;
@@ -238,7 +241,14 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
                 return true;
             }
         });
-        onPageSelected(INITIAL_POSITION);
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                onPageSelected(INITIAL_POSITION);
+
+            }
+        }, 500);
     }
 
     public void openNextSong(){
@@ -305,7 +315,13 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int i) {
-        ((PlayerFragment)viewPagerAdapter.getCurrentItem(i)).play(viewPagerAdapter.getCurrentSong(i));
+        try{
+            ((PlayerFragment)viewPagerAdapter.getCurrentItem(i)).play(viewPagerAdapter.getCurrentSong(i));
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
        Log.d("onPageSelected","position:- "+i);
 
     }

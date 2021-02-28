@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/songToolbar"
-        app:title="Songs"
+        app:title="@string/songs"
         android:background="@color/menuColor">
 
     </androidx.appcompat.widget.Toolbar>

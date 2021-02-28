@@ -21,9 +21,15 @@
     </entry>
     <entry>
         <key>New_Arrival_Ar</key>
-        <value>قادم جديد
+        <value>أحدث الرنّات
         </value>
     </entry>
+    <entry>
+        <key>Crash_App</key>
+        <value>false
+        </value>
+    </entry>
+
 
 
 </defaultsMap>

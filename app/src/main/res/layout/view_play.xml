@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/playLayout"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_5"
+    >
+    <TextView
+        android:id="@+id/playText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+        android:text="@string/play"
+        ></TextView>
+    <ImageView
+        android:layout_width="@dimen/margin_15"
+        android:layout_height="@dimen/margin_15"
+        android:id="@+id/playImage"
+        android:src="@drawable/ic_play"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:layout_gravity="center_vertical"
+        >
+
+
+    </ImageView>
+
+</LinearLayout>

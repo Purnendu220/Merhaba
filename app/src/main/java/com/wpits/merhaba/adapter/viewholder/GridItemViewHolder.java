@@ -21,7 +21,7 @@ public class GridItemViewHolder extends RecyclerView.ViewHolder {
     public TextView textViewCategoryName;
 
     private final Context context;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
 
     public GridItemViewHolder(View itemView) {
         super(itemView);

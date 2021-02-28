@@ -67,16 +67,19 @@
         android:layout_marginTop="@dimen/margin_20"
         >
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_play_icon__1_"
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/ic_play_icon__1_"-->
+<!--            android:id="@+id/imgPlay"-->
+<!--            android:padding="@dimen/margin_10"-->
+<!--            >-->
+
+
+<!--        </ImageView>-->
+        <include
             android:id="@+id/imgPlay"
-            android:padding="@dimen/margin_10"
-            >
-
-
-        </ImageView>
+            layout="@layout/view_play"></include>
 
         <ImageView
             android:id="@+id/addToFav"

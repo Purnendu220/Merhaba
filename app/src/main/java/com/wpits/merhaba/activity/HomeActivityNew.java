@@ -26,6 +26,7 @@ import com.wpits.merhaba.databinding.ActivityHomeNewBinding;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.BottomTapLayout;
 import com.wpits.merhaba.model.category.Category;
+import com.wpits.merhaba.remoteConfig.RemoteConfigure;
 import com.wpits.merhaba.utility.Utility;
 import com.wpits.merhaba.utils.AppConstant;
 import com.wpits.merhaba.utils.MySingleton;
@@ -40,21 +41,24 @@ import java.util.List;
 
 import phonenumberui.PhoneNumberActivity;
 
-public class HomeActivityNew extends AppCompatActivity implements ViewPager.OnPageChangeListener, BottomTapLayout.TabListener, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class HomeActivityNew extends BaseActivity implements ViewPager.OnPageChangeListener, BottomTapLayout.TabListener, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     ActivityHomeNewBinding binding;
     private BottomTapLayout bottomTapLayout;
-    private final int TOTAL_TABS = 4;
+    private final int TOTAL_TABS = 3;
     private int INITIAL_POSITION = AppConstant.Tabs.HOME;
     private ViewPagerAdapter viewPagerAdapter;
     Context context;
     List<Category> allSampleData = new ArrayList<>();
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeNewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        if( RemoteConfigure.getFirebaseRemoteConfig(context).getRemoteConfigValue(RemoteConfigure.crash_app).equalsIgnoreCase("true")){
+             return;
+        }
         context = this;
         setupBottomTabs();
 
@@ -74,6 +78,8 @@ public class HomeActivityNew extends AppCompatActivity implements ViewPager.OnPa
         getCategory();
         binding.toolbar.tvHeaderSearchIco.setOnClickListener(this);
 
+
+
     }
 
     private void setupBottomTabs() {
@@ -90,9 +96,9 @@ public class HomeActivityNew extends AppCompatActivity implements ViewPager.OnPa
         tabList.add(new BottomTapLayout.Tab(AppConstant.Tabs.SETTINGS, R.drawable.ic_settings_ico, R.drawable.ic_settings_ico,
                 ContextCompat.getColor(context, R.color.colorAccent), ContextCompat.getColor(context, R.color.theme_light_text),
                 context.getString(R.string.title_settings), context.getString(R.string.title_settings)));
-        tabList.add(new BottomTapLayout.Tab(AppConstant.Tabs.MORE, R.drawable.ic_more_ico, R.drawable.ic_more_ico,
-                ContextCompat.getColor(context, R.color.colorAccent), ContextCompat.getColor(context, R.color.theme_light_text),
-                context.getString(R.string.title_more), context.getString(R.string.title_more)));
+//        tabList.add(new BottomTapLayout.Tab(AppConstant.Tabs.MORE, R.drawable.ic_more_ico, R.drawable.ic_more_ico,
+//                ContextCompat.getColor(context, R.color.colorAccent), ContextCompat.getColor(context, R.color.theme_light_text),
+//                context.getString(R.string.title_more), context.getString(R.string.title_more)));
 
 
         bottomTapLayout = new BottomTapLayout();
@@ -247,7 +253,7 @@ public class HomeActivityNew extends AppCompatActivity implements ViewPager.OnPa
                         category=new Category();
                         category.setId(categoryObject.getInt("id"));
                         category.setCategoryName(categoryObject.getString("categoryName"));
-                        category.setCategoryNameAr(categoryObject.getString("categoryName"));
+                        category.setCategoryNameAr(categoryObject.getString("categoryNameAr"));
                         categoryObject.getString("categoryNameAr");
                         // albumApi(category.getId());
                         Log.d("CategoryResponse2", String.valueOf(categoryObject.getInt("id")));

@@ -51,9 +51,9 @@ import java.util.List;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterCallbacks<Object> {
+public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterCallbacks<Object> {
 
-        boolean isArabic = Utility.isArabic;
+        boolean isArabic = Utility.isArabic();
         private Toolbar mToolbar;
         DrawerLayout mDraweLayout;
         NavigationView navigationView;

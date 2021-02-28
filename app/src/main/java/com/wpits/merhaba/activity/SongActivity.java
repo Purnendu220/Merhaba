@@ -44,7 +44,7 @@ import java.util.Map;
 import phonenumberui.PhoneNumberActivity;
 import pl.droidsonroids.gif.GifImageView;
 
-public class SongActivity extends AppCompatActivity implements AdapterCallbacks<Object> {
+public class SongActivity extends BaseActivity implements AdapterCallbacks<Object> {
 
     RecyclerView songRecycler;
     Toolbar mToolbar;
@@ -52,7 +52,7 @@ public class SongActivity extends AppCompatActivity implements AdapterCallbacks<
     SongsListViewAllAdapter songsListAdapter;
     Context mContext;
     JcPlayerView jcplayerView;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
     int categoryId;
 
     public static void open(Context context,int categoryId){

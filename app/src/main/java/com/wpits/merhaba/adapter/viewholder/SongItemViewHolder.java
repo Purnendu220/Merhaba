@@ -17,12 +17,12 @@ import com.wpits.merhaba.utility.Utility;
 public class SongItemViewHolder extends RecyclerView.ViewHolder {
 
 
-    public LinearLayout parent;
+    public LinearLayout parent,imgPlay;
     public TextView textViewSongName,textViewArtistName,textViewAlbum;
-    public ImageView imageViewClass,imgPlay,addToFav;
+    public ImageView imageViewClass,addToFav;
 
     private final Context context;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
 
     public SongItemViewHolder(View itemView) {
         super(itemView);

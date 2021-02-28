@@ -156,7 +156,7 @@
                android:layout_width="@dimen/margin_40"
                android:layout_height="@dimen/margin_20"
                android:background="@drawable/rectangular_border"
-               android:text="Rate"
+               android:text="@string/rate"
                android:textSize="8sp"
                android:textColor="@color/colorAccent"
                android:layout_toRightOf="@id/songRating"

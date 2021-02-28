@@ -13,7 +13,7 @@ import com.wpits.merhaba.MainActivity;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.helper.LocaleHelper;
 
-public class Language extends AppCompatActivity {
+public class Language extends BaseActivity {
 
     ImageView arabLang,englishLang;
     SharedPreferences langaugePref;
