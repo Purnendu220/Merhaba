@@ -60,6 +60,7 @@ import com.google.gson.Gson;
 import com.wpits.merhaba.MainActivity;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.activity.BaseActivity;
+import com.wpits.merhaba.activity.HomeActivityNew;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.utils.ApplicationUrls;
@@ -686,7 +687,7 @@ public class PhoneNumberActivity extends BaseActivity {
 
 
                     Toast.makeText(getApplicationContext(),"Mobile number verification successful.",Toast.LENGTH_SHORT).show();
-                    Intent mainIntent = new Intent(PhoneNumberActivity.this, MainActivity.class);
+                    Intent mainIntent = new Intent(PhoneNumberActivity.this, HomeActivityNew.class);
                     PhoneNumberActivity.this.startActivity(mainIntent);
                     PhoneNumberActivity.this.finish();
                 }else if(response!=null && response.toString().contains("OTP does not matched")){

@@ -24,79 +24,142 @@
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
                 android:background="@color/theme_search">
-
                 <LinearLayout
-                    android:id="@+id/layoutSearchBar"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:id="@+id/layoutSearchBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal"
 
-                    <FrameLayout
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent">
+                        >
 
-                        <ProgressBar
-                            android:id="@+id/progressBarDone"
-                            style="?android:attr/progressBarStyleSmall"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:visibility="invisible" />
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent">
+
+                            <ProgressBar
+                                android:id="@+id/progressBarDone"
+                                style="?android:attr/progressBarStyleSmall"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:visibility="invisible" />
+
+                            <ImageView
+                                android:id="@+id/imageViewImageSearch"
+                                style="@style/ToolBarButton"
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:padding="12dp"
+                                android:src="@drawable/search_white"
+                                android:tint="@color/theme_medium_dark_text"
+                                android:transitionName="searchIcon"
+                                android:visibility="visible" />
+
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <EditText
+                                android:id="@+id/editTextSearch"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:background="@null"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:focusedByDefault="true"
+                                android:gravity="left|center_vertical"
+                                android:hint="@string/search_hint"
+                                android:imeOptions="actionSearch"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:textColor="@color/theme_dark_text"
+                                android:textColorHint="@color/theme_medium_dark_text"
+                                android:textSize="@dimen/text_large"
+                                android:visibility="invisible" />
+                        </LinearLayout>
 
                         <ImageView
-                            android:id="@+id/imageViewImageSearch"
+                            android:id="@+id/imageViewSearchCancel"
                             style="@style/ToolBarButton"
                             android:layout_width="40dp"
                             android:layout_height="match_parent"
                             android:background="@null"
-                            android:padding="12dp"
-                            android:src="@drawable/search_white"
+                            android:padding="10dp"
+                            android:src="@drawable/close"
                             android:tint="@color/theme_medium_dark_text"
-                            android:transitionName="searchIcon"
                             android:visibility="visible" />
 
-                    </FrameLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <EditText
-                            android:id="@+id/editTextSearch"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:background="@null"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:focusedByDefault="true"
-                            android:gravity="left|center_vertical"
-                            android:hint="@string/search_hint"
-                            android:imeOptions="actionSearch"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:textColor="@color/theme_dark_text"
-                            android:textColorHint="@color/theme_medium_dark_text"
-                            android:textSize="@dimen/text_large"
-                            android:visibility="invisible" />
                     </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/imageViewSearchCancel"
-                        style="@style/ToolBarButton"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:padding="10dp"
-                        android:src="@drawable/close"
-                        android:tint="@color/theme_medium_dark_text"
-                        android:visibility="visible" />
 
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
         </LinearLayout>
+
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/optionLayout"
+           android:orientation="vertical">
+           <RadioGroup
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/radioGroup"
+               android:layout_marginTop="@dimen/margin_5"
+               android:orientation="horizontal"
+               android:weightSum="3"
+               android:layout_marginLeft="@dimen/margin_10"
+               android:layout_marginRight="@dimen/margin_10"
+               >
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="By Name"
+                   android:id="@+id/radioByName"
+                   android:layout_gravity="center_horizontal"
+                   android:checked="false"
+                   android:layout_weight="1"
+                   />
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="By Artist"
+                   android:id="@+id/radioByArtist"
+                   android:layout_gravity="center_horizontal"
+                   android:checked="false"
+                   android:layout_weight="1"
+
+                   />
+
+               <RadioButton
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="By Id"
+                   android:id="@+id/radioById"
+                   android:layout_gravity="center_horizontal"
+                   android:checked="false"
+                   android:layout_weight="1"
+
+                   />
+
+           </RadioGroup>
+
+
+       </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"

@@ -19,6 +19,7 @@ import android.transition.Transition;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -67,6 +68,16 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private Runnable runnableSearch;
     private boolean isSearching = false;
     SongsListViewAllAdapter songsListAdapter;
+    boolean isArabic = Utility.isArabic();
+    public final int searchByName = 1;
+    public final int searchByArtist = 2;
+    public final int searchById = 3;
+
+    int searchBy = searchByName;
+
+
+
+
 
 
     @Override
@@ -135,6 +146,51 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             LogUtils.exception(e);
         }
         setupSearch();
+        markRadio(searchBy);
+
+
+        binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.radioByName:
+                        searchBy = searchByName;
+                        break;
+                    case R.id.radioById:
+                        searchBy = searchById;
+
+                        break;
+                    case R.id.radioByArtist:
+                        searchBy = searchByArtist;
+                        break;
+
+                }
+                markRadio(searchBy);
+            }
+        });
+    }
+
+    private void markRadio(int searchBy){
+        switch (searchBy){
+            case searchByName:
+                binding.radioByName.setChecked(true);
+                binding.editTextSearch.setHint(context.getResources().getString(R.string.search_by_name));
+                break;
+            case searchById:
+                binding.radioById.setChecked(true);
+                binding.editTextSearch.setHint(context.getResources().getString(R.string.search_by_id));
+
+
+                break;
+            case searchByArtist:
+                binding.radioByArtist.setChecked(true);
+                binding.editTextSearch.setHint(context.getResources().getString(R.string.search_by_artist));
+
+
+                break;
+        }
+        binding.editTextSearch.setText("");
+
     }
 
     @Override
@@ -301,7 +357,43 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private List<Song> searchApi(String search) {
 
         final List<Song> songsList = new ArrayList<Song>();
-        String album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongName?songName="+search;
+        String album_url = null;
+        if(isArabic){
+            if(searchBy == searchByName){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongNameAr?songName="+search;
+
+            }
+            else if(searchBy == searchById){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongId?songId="+search;
+
+            }
+           else if(searchBy == searchByArtist){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentByArtistNameAr?artistName="+search;
+
+            }else{
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongNameAr?songName="+search;
+
+            }
+        }else{
+            if(searchBy == searchByName){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongName?songName="+search;
+
+            }
+           else if(searchBy == searchById){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongId?songId="+search;
+
+            }
+            else if(searchBy == searchByArtist){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentByArtistName?artistName="+search;
+
+            }
+            else{
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongName?songName="+search;
+
+            }
+
+
+        }
         Log.d("Request --->",album_url);
 
         JsonObjectRequest albumRequest=new JsonObjectRequest(Request.Method.GET, album_url, null, new Response.Listener<JSONObject>() {

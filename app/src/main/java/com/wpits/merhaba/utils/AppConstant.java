@@ -41,6 +41,7 @@ public class AppConstant {
         String USER_IS_LOGGED_IN = "USER_IS_LOGGED_IN";
        String USER_LANGUAGE = "USER_LANGUAGE";
 
+       String ALL_CATEGORIES = "ALL_CATEGORIES";
 
        String IS_FIRST_RUN = "isFirstRun";
        String IS_FIREBASE_ID_UPDATED = "FirebaseIdUpdated";

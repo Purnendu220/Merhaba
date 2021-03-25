@@ -64,10 +64,12 @@
                 android:id="@+id/btnSubscribe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="هل تريد الاشتراك في هذه الرنة؟"
+                android:text="@string/subscribe_this_ringtone"
                 android:layout_marginTop="25dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@color/menuColor"
+                android:paddingStart="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_10"
                 android:textColor="@color/backgroundLight"/>
 
         </LinearLayout>

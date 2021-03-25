@@ -4,7 +4,11 @@ import com.google.gson.Gson;
 import com.preference.PowerPreference;
 import com.preference.Preference;
 import com.wpits.merhaba.model.VerifyOTPModel;
+import com.wpits.merhaba.model.category.Category;
+import com.wpits.merhaba.utility.Utility;
 import com.wpits.merhaba.utils.AppConstant;
+
+import java.util.List;
 
 public class PrefrenceManager {
     private static PrefrenceManager sInstance;
@@ -57,6 +61,14 @@ public class PrefrenceManager {
     public String getUserMobile() {
         return prefrence.getString(AppConstant.Prefrences.USER_MOBILE,"");
     }
+    public void saveCategories(String s) {
+        prefrence.putString(AppConstant.Prefrences.ALL_CATEGORIES,s);
+    }
+
+    public List<Category> getAllCategories() {
+        return Utility.getSavedCategories(prefrence.getString(AppConstant.Prefrences.ALL_CATEGORIES,""));
+    }
+
     public void setIsLoggedIn(boolean s) {
         prefrence.putBoolean(AppConstant.Prefrences.USER_IS_LOGGED_IN,s);
     }

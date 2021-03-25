@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -129,10 +130,10 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
                     JSONArray data = response.getJSONArray("data");
 
                     for(int i=0;i<data.length();i++){
-                        JSONObject topContent=data.getJSONObject(i);
+                        JSONObject songContent=data.getJSONObject(i);
                         //JSONObject categoryContent=categoryList.getJSONObject("album");
-                        JSONObject songContent = topContent.getJSONObject("topContent");
-                        String favStatus = topContent.getString("favStatus");
+                        //JSONObject songContent = topContent.getJSONObject("topContent");
+                        //
 
                         int id = songContent.getInt("id");
                         int songId =songContent.getInt("songId");
@@ -146,6 +147,7 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
                         String albumArt=   songContent.getString("albumArt");
                         String contentPathLocation=   songContent.getString("contentPathLocation");
 
+
                         Song song=new Song();
                         song.setId(id);
                         song.setAlbumArt(albumArt);
@@ -158,7 +160,13 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
                         song.setSongsNameAr(songsNameAr);
                         song.setContentPathLocation(contentPathLocation);
                         song.setSongId(songId);
-                        song.setFavStatus(Utility.getFavStatus(favStatus));
+                        try{
+                            String favStatus = songContent.getString("favStatus");
+                            song.setFavStatus(Utility.getFavStatus(favStatus));
+
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
 
                         Log.d("Songs", categoryId+" "+catCategoryId);
 
@@ -197,8 +205,10 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
                 params.put("Content-Type","application/json");
                 return params;
             }
-        }
-                ;
+        };
+        albumRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context).addToRequest(albumRequest);
 
         return songsList;

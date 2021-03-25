@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.adapter.ViewPagerAdapter;
 import com.wpits.merhaba.databinding.ActivityHomeNewBinding;
+import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.BottomTapLayout;
 import com.wpits.merhaba.model.category.Category;
@@ -77,6 +79,13 @@ public class HomeActivityNew extends BaseActivity implements ViewPager.OnPageCha
         setUpNavigationDrawerMenu();
         getCategory();
         binding.toolbar.tvHeaderSearchIco.setOnClickListener(this);
+        if(isArabic){
+            binding.toolbar.tvHeaderTitle.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_app_name_ico_ar));
+
+        }else{
+            binding.toolbar.tvHeaderTitle.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_app_name_ico));
+
+        }
 
 
 
@@ -254,14 +263,11 @@ public class HomeActivityNew extends BaseActivity implements ViewPager.OnPageCha
                         category.setId(categoryObject.getInt("id"));
                         category.setCategoryName(categoryObject.getString("categoryName"));
                         category.setCategoryNameAr(categoryObject.getString("categoryNameAr"));
-                        categoryObject.getString("categoryNameAr");
-                        // albumApi(category.getId());
-                        Log.d("CategoryResponse2", String.valueOf(categoryObject.getInt("id")));
-                        Log.d("CategoryResponse -->", category.getCategoryName()+" "+category.getId());
                         allSampleData.add(category);
 
 
                     }
+                    PrefrenceManager.getInstance().saveCategories(response.toString());
                     addMenuItemInNavMenuDrawer();
 
                 } catch (JSONException e) {
@@ -275,7 +281,9 @@ public class HomeActivityNew extends BaseActivity implements ViewPager.OnPageCha
 
             }
         });
-
+        categoryRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context).addToRequest(categoryRequest);
     }
 

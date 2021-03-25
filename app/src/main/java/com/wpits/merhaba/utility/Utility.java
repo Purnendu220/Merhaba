@@ -22,7 +22,16 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.wpits.merhaba.helper.PrefrenceManager;
+import com.wpits.merhaba.model.category.Category;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Utility {
@@ -117,5 +126,51 @@ public class Utility {
         String second = seconds<10?"0"+seconds:seconds+"";
 
         return min+":"+second;
+    }
+
+    public static List<Category> getSavedCategories(String list){
+        Category category;
+     List<Category> allSampleData = new ArrayList<>();
+        try {
+            JSONArray response = new JSONArray(list);
+            for(int i=0;i<response.length();i++){
+                if(i>7){
+                    break;
+                }
+
+                JSONObject categoryObject=response.getJSONObject(i);
+                category=new Category();
+                category.setId(categoryObject.getInt("id"));
+                category.setCategoryName(categoryObject.getString("categoryName"));
+                category.setCategoryNameAr(categoryObject.getString("categoryNameAr"));
+                allSampleData.add(category);
+
+
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    return allSampleData;
+    }
+    public static String getCategoryName(List<Category> list,int categoryId,boolean isArabic) {
+        String categoryName = "";
+        for (Category cat:list
+             ) {
+            if(cat.getId()==categoryId){
+                if(isArabic){
+                    categoryName = cat.getCategoryNameAr();
+
+                }else{
+                    categoryName = cat.getCategoryName();
+
+                }
+            }
+
+        }
+
+       return categoryName;
     }
 }

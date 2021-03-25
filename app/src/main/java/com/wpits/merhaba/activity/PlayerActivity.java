@@ -12,11 +12,13 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.wpits.merhaba.R;
 import com.wpits.merhaba.activity.ui.player.PlayerFragment;
 import com.wpits.merhaba.adapter.PlayerViewPagerAdapter;
 import com.wpits.merhaba.databinding.ActivityPlayerBinding;
@@ -69,9 +71,24 @@ public class PlayerActivity extends BaseActivity implements ViewPager.OnPageChan
         context = this;
         binding.toolbar.tvHeaderSearchIco.setVisibility(View.GONE);
         binding.toolbar.tvHeaderDrawerIco.setVisibility(View.GONE);
+
         navigatedFrom = getIntent().getIntExtra(AppConstant.DataKey.NAVIGATED_FROM_INT, -1);
         categoryId = getIntent().getIntExtra(AppConstant.DataKey.CATEGORY_ID,0);
         currentSong = (Song) getIntent().getSerializableExtra(AppConstant.DataKey.SONG_DATA);
+        String catName = Utility.getCategoryName(PrefrenceManager.getInstance().getAllCategories(),categoryId,isArabic);
+        if(isArabic){
+            binding.toolbar.tvHeaderTitle.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_app_name_ico_ar));
+
+        }else{
+            binding.toolbar.tvHeaderTitle.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_app_name_ico));
+
+        }
+        if(catName!=null&&catName.length()>0){
+        binding.toolbar.tvHeaderTitle.setVisibility(View.GONE);
+        binding.toolbar.toolbar.setTitle(catName);
+
+    }
+
         if(navigatedFrom==AppConstant.Navigated.FROM_FAVOURITES){
             getFavList();
         }else{
@@ -100,12 +117,11 @@ public class PlayerActivity extends BaseActivity implements ViewPager.OnPageChan
                     for(int i=0;i<data.length();i++){
 
 
-                        JSONObject topContent=data.getJSONObject(i);
+                        JSONObject songContent=data.getJSONObject(i);
                         //JSONObject categoryContent=categoryList.getJSONObject("album");
-                        Log.d("Songs", topContent.toString());
-                        JSONObject songContent = topContent.getJSONObject("topContent");
-                        String favStatus = topContent.getString("favStatus");                        //JSONObject categoryContent=categoryList.getJSONObject("album");
                         Log.d("Songs", songContent.toString());
+                       // JSONObject songContent = topContent.getJSONObject("topContent");
+                        //String favStatus = topContent.getString("favStatus");                        //JSONObject categoryContent=categoryList.getJSONObject("album");
 
 
                         //JSONObject songContent = data.getJSONObject(i);
@@ -134,8 +150,14 @@ public class PlayerActivity extends BaseActivity implements ViewPager.OnPageChan
                         song.setSongsNameAr(songsNameAr);
                         song.setContentPathLocation(contentPathLocation);
                         song.setSongId(songId);
-                        song.setFavStatus(Utility.getFavStatus(favStatus));
+                        song.setId(id);
+                        try{
+                            String favStatus = songContent.getString("favStatus");
+                            song.setFavStatus(Utility.getFavStatus(favStatus));
 
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                         Log.d("Songs", categoryId+" "+catCategoryId);
 
                         if(catCategoryId == categoryId) {
@@ -176,6 +198,9 @@ public class PlayerActivity extends BaseActivity implements ViewPager.OnPageChan
             }
         }
                 ;
+        albumRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context).addToRequest(albumRequest);
 
         return songsList;
@@ -207,7 +232,9 @@ public class PlayerActivity extends BaseActivity implements ViewPager.OnPageChan
 
             }
         });
-
+        addToFavRequestRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context).addToRequest(addToFavRequestRequest);
     }
 
@@ -328,6 +355,10 @@ public class PlayerActivity extends BaseActivity implements ViewPager.OnPageChan
 
     @Override
     public void onPageScrollStateChanged(int i) {
+
+    }
+    public Song getCurrentSong(){
+return viewPagerAdapter.getCurrentSong(binding.viewPager.getCurrentItem());
 
     }
 }

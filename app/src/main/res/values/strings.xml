@@ -1106,5 +1106,10 @@
     <string name="play">Play</string>
     <string name="rate">Rate</string>
     <string name="songs">Songs</string>
+    <string name="subscribe_this_ringtone">Subscribe to this ringtone</string>
+    <string name="send_gift">Send</string>
+    <string name="search_by_name">Search by song name</string>
+    <string name="search_by_id">Search by song id</string>
+    <string name="search_by_artist">Search by song artist</string>
 
 </resources>

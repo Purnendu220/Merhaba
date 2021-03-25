@@ -1074,7 +1074,7 @@
     <string name="we_sent_you_a_6_digit_code">أرسلنا لك رمزًا مكونًا من 6 أرقام.</string>
     <string name="select_language_ar">اختار اللغة</string>
     <string name="code_ar">ادخل الرمز</string>
-    <string name="send_confirmation_code_ar">إرسال رمز فريد عبر الرسائل القصيرة</string>
+    <string name="send_confirmation_code_ar">إرسال رمز التحقق عبر الرسائل النصية</string>
     <string name="we_sent_you_a_6_digit_code_ar">لقد أرسلنا إليك رمزًا مكونًا من 6 أرقام عبر الرسائل القصيرة</string>
     <string name="enter_otp_code">أدخل رمز OTP</string>
 
@@ -1109,5 +1109,10 @@
     <string name="play">استماع</string>
     <string name="rate">قيم الأغنية</string>
     <string name="songs">الرنّات</string>
+    <string name="subscribe_this_ringtone">هل تريد الاشتراك في هذه الرنة؟</string>
+    <string name="send_gift">إرسال</string>
+    <string name="search_by_name">البحث عن طريق اسم الأغنية</string>
+    <string name="search_by_id">البحث عن طريق معرف الأغنية</string>
+    <string name="search_by_artist">البحث عن طريق الفنان الأغنية</string>
 
 </resources>

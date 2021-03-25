@@ -42,6 +42,7 @@ import com.wpits.merhaba.R;
 import com.wpits.merhaba.activity.PlayerActivity;
 import com.wpits.merhaba.databinding.PlayerFragmentBinding;
 import com.wpits.merhaba.dialogs.CustomRateAlertDialog;
+import com.wpits.merhaba.events.Events;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.AddToFavRequest;
@@ -56,6 +57,7 @@ import com.wpits.merhaba.utils.MySingleton;
 import com.wpits.merhaba.utils.SubscribeModel;
 import com.wpits.merhaba.utils.SubscriptionDataModel;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -324,7 +326,6 @@ private void trackProgress(){
                 break;
             case R.id.imagePrev:
                 binding.jcplayer.kill();
-
                 ((PlayerActivity)getActivity()).playPrev();
                 break;
             case R.id.imagePlayNext:
@@ -361,18 +362,19 @@ private void trackProgress(){
                 }
                 break;
             case  R.id.imageGift:
-                showGift(mSong);
+                showGift(((PlayerActivity)getActivity()).getCurrentSong());
                 break;
             case  R.id.imageGetIt:
-                showPopup(binding.imageGetIt,mSong);
+                showPopup(binding.imageGetIt,((PlayerActivity)getActivity()).getCurrentSong());
                 break;
-            case R.id.addToFav:
+            case R.id.imageFav:
                 if(PrefrenceManager.getInstance().isLoggedIn()){
 
-                    if(mSong.getFavStatus()){
-                    unfavRequest(mSong);
+
+                    if(((PlayerActivity)getActivity()).getCurrentSong().getFavStatus()){
+                    unfavRequest(((PlayerActivity)getActivity()).getCurrentSong());
                 }else{
-                    addToFavourite(mSong);
+                    addToFavourite(((PlayerActivity)getActivity()).getCurrentSong());
                 }
                 }else{
                     Intent i = new Intent(mContext, PhoneNumberActivity.class);
@@ -397,7 +399,7 @@ private void trackProgress(){
         if(isArabic)
             txtSongName.setText(song.getSongsNameAr());
         else
-            txtSongName.setText(song.getSongName());
+            txtSongName.setText(song.getSongNameEn());
 
         if(isArabic)
             txtCategoryName.setText(song.getCategoryNameAr());
@@ -628,6 +630,7 @@ private void trackProgress(){
 
     }
     private void addToFavourite(final Song mSong){
+
         String x="https://www.marhaba.com.ly:18086/crbt/v1/favorites";
         // String jsonString = {"subscriber_id" : "Ronaldo", "top_content_id" : "soccer"};
         //  JSONObject jsonObject = new JSONObject("{\"subscriber_id\":\"+PrefrenceManager.getInstance().getUserMobile()+\",\"top_content_id\":\"++\"}");
@@ -653,6 +656,8 @@ private void trackProgress(){
                     Toast.makeText(mContext,"Song marked as Favourite",Toast.LENGTH_LONG);
                     binding.imageFav.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_heart));
                     mSong.setFavStatus(true);
+                    EventBus.getDefault().post(new Events.FavouritesEvent());
+
 
 
                 } catch (Exception e) {
@@ -679,7 +684,7 @@ private void trackProgress(){
         JSONObject jsonRequest = new JSONObject();
         try {
             jsonRequest.put("subscriber_id", PrefrenceManager.getInstance().getUserMobile());
-            jsonRequest.put("top_content_id", mSong.getId());
+            jsonRequest.put("top_content_id", song.getId());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -692,10 +697,11 @@ private void trackProgress(){
             public void onResponse(JSONObject response) {
                 Log.d("CategoryResponse",response.toString());
                 try {
-                    Toast.makeText(mContext,"Song marked as Favourite",Toast.LENGTH_LONG);
+                    Toast.makeText(mContext,"Song unmarked as Favourite",Toast.LENGTH_LONG);
                     dialog.dismiss();
                     binding.imageFav.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_add_fav));
                     mSong.setFavStatus(false);
+                    EventBus.getDefault().post(new Events.FavouritesEvent());
 
 
 
@@ -706,8 +712,18 @@ private void trackProgress(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dialog.dismiss();
+                try {
+                    Toast.makeText(mContext,"Song unmarked as Favourite",Toast.LENGTH_LONG);
+                    dialog.dismiss();
+                    binding.imageFav.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_add_fav));
+                    mSong.setFavStatus(false);
+                    EventBus.getDefault().post(new Events.FavouritesEvent());
 
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Log.d("CategoryErrorResponse",error.toString());
                 Toast.makeText(mContext,"Song marked as Favourite",Toast.LENGTH_LONG);
 

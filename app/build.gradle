@@ -70,6 +70,7 @@ dependencies {
     implementation 'com.ss.bannerslider:bannerslider:2.0.0'
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
 
+    implementation 'org.greenrobot:eventbus:3.2.0'
 
 
 

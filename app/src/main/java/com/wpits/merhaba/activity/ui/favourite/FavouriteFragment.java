@@ -29,6 +29,7 @@ import com.wpits.merhaba.activity.PlayerActivity;
 import com.wpits.merhaba.adapter.AdapterCallbacks;
 import com.wpits.merhaba.adapter.SongsListViewAllAdapter;
 import com.wpits.merhaba.databinding.FragmentFavouriteBinding;
+import com.wpits.merhaba.events.Events;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.album.Song;
@@ -38,6 +39,9 @@ import com.wpits.merhaba.utility.Utility;
 import com.wpits.merhaba.utils.MySingleton;
 import com.wpits.merhaba.utils.ViewPagerFragmentSelection;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -57,6 +61,14 @@ public class FavouriteFragment extends Fragment implements ViewPagerFragmentSele
     SongsListViewAllAdapter songsListAdapter;
     List<Song> favsongs = new ArrayList<>();
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onFavouritesEvent(Events.FavouritesEvent event) {
+        getFavList();
+
+
+    };
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         favouriteViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(FavouriteViewModel.class);
@@ -67,9 +79,19 @@ public class FavouriteFragment extends Fragment implements ViewPagerFragmentSele
         return binding.getRoot();
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        EventBus.getDefault().register(this);
+
         if(PrefrenceManager.getInstance().isLoggedIn()){
             binding.recyclerViewFavourite.setVisibility(View.VISIBLE);
             binding.btnSendConfirmationCode.setVisibility(View.GONE);
@@ -102,15 +124,20 @@ public class FavouriteFragment extends Fragment implements ViewPagerFragmentSele
                     Log.d("Fav",resp.getData().size()+" Records");
                     favsongs = new ArrayList<>();
                     songsListAdapter.clearAll();
+                    songsListAdapter.notifyDataSetChanged();
+
                     for (DataDTO dto:resp.getData()
                          ) {
                         Song model = dto.getTopContentId();
                         model.setFavStatus(true);
                         favsongs.add(model);
                     }
+                    if(favsongs!=null&&favsongs.size()>0){
+                        songsListAdapter.addAllClass(favsongs);
+                        songsListAdapter.notifyDataSetChanged();
+                    }
 
-                    songsListAdapter.addAllClass(favsongs);
-                    songsListAdapter.notifyDataSetChanged();
+
 
 
                 } catch (Exception e) {
@@ -121,7 +148,8 @@ public class FavouriteFragment extends Fragment implements ViewPagerFragmentSele
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("CategoryErrorResponse",error.toString());
-
+                songsListAdapter.clearAll();
+                songsListAdapter.notifyDataSetChanged();
             }
 
         }) {
@@ -206,6 +234,7 @@ public class FavouriteFragment extends Fragment implements ViewPagerFragmentSele
             public void onErrorResponse(VolleyError error) {
                 Log.d("CategoryErrorResponse",error.toString());
                 dialog.dismiss();
+                getFavList();
 
 
             }

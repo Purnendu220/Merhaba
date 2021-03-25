@@ -75,8 +75,7 @@
                 android:id="@+id/btnGift"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="إرسال"
-                android:layout_marginTop="25dp"
+                android:text="@string/send_gift"
                 android:layout_gravity="center_horizontal"
                 android:background="@color/menuColor"
                 android:textColor="@color/backgroundLight"/>

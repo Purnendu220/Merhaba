@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -111,11 +112,11 @@ public class SongActivity extends BaseActivity implements AdapterCallbacks<Objec
 
                     for(int i=0;i<data.length();i++){
 
-                        JSONObject topContent=data.getJSONObject(i);
+                        JSONObject songContent=data.getJSONObject(i);
                         //JSONObject categoryContent=categoryList.getJSONObject("album");
-                        Log.d("Songs", topContent.toString());
-                        JSONObject songContent = topContent.getJSONObject("topContent");
-                        String favStatus = topContent.getString("favStatus");
+                        Log.d("Songs", songContent.toString());
+                       // JSONObject songContent = topContent.getJSONObject("topContent");
+                        //String favStatus = topContent.getString("favStatus");
                         int id = songContent.getInt("id");
                         int songId =songContent.getInt("songId");
                         String songName =songContent.getString("songName");
@@ -141,8 +142,13 @@ public class SongActivity extends BaseActivity implements AdapterCallbacks<Objec
                         song.setSongsNameAr(songsNameAr);
                         song.setContentPathLocation(contentPathLocation);
                         song.setSongId(songId);
-                        song.setFavStatus(Utility.getFavStatus(favStatus));
+                        try{
+                            String favStatus = songContent.getString("favStatus");
+                            song.setFavStatus(Utility.getFavStatus(favStatus));
 
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                         Log.d("Songs", categoryId+" "+catCategoryId);
 
                         if(catCategoryId == categoryId) {
@@ -182,6 +188,9 @@ public class SongActivity extends BaseActivity implements AdapterCallbacks<Objec
             }
         }
                 ;
+        albumRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(mContext).addToRequest(albumRequest);
 
         return songsList;

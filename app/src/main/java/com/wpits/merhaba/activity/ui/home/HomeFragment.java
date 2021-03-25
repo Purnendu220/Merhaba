@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -30,6 +31,7 @@ import com.wpits.merhaba.activity.PlayerActivity;
 import com.wpits.merhaba.adapter.AdapterCallbacks;
 import com.wpits.merhaba.adapter.HomeAdapter;
 import com.wpits.merhaba.adapter.MainSliderAdapter;
+import com.wpits.merhaba.events.Events;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.AddToFavRequest;
@@ -42,6 +44,7 @@ import com.wpits.merhaba.utility.Utility;
 import com.wpits.merhaba.utils.MySingleton;
 import com.wpits.merhaba.utils.ViewPagerFragmentSelection;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -226,6 +229,8 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
                     Toast.makeText(mContext,"Song marked as Favourite",Toast.LENGTH_LONG);
                     getCategory();
                     dialog.dismiss();
+                    EventBus.getDefault().post(new Events.FavouritesEvent());
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -240,10 +245,14 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
 
             }
         });
-
+        addToFavRequestRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(mContext).addToRequest(addToFavRequestRequest);
     }
     private void unfavRequest(Song mSong){
+
+
         final ProgressDialog dialog = Utility.showProgress(mContext);
 
         String x="https://www.marhaba.com.ly:18086/crbt/v1/deleteFavorite";
@@ -266,6 +275,8 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
                     Toast.makeText(mContext,"Song marked as Favourite",Toast.LENGTH_LONG);
                     getCategory();
                     dialog.dismiss();
+                    EventBus.getDefault().post(new Events.FavouritesEvent());
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -280,7 +291,9 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
 
             }
         });
-
+        addToFavRequestRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(mContext).addToRequest(addToFavRequestRequest);
     }
 
