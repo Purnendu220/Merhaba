@@ -21,11 +21,13 @@ public class SongVerticalItemViewHolder extends RecyclerView.ViewHolder {
      TextView textViewSongName,textViewArtistName;
     private final Context context;
     boolean isArabic = Utility.isArabic();
+    int showInScreen;
 
-    public SongVerticalItemViewHolder(View itemView) {
+    public SongVerticalItemViewHolder(View itemView,int showInScreen) {
         super(itemView);
 
         context = itemView.getContext();
+        this.showInScreen = showInScreen;
 
         itemView.setClickable(true);
         textViewSongName = itemView.findViewById(R.id.textViewSongName);
@@ -48,11 +50,26 @@ public class SongVerticalItemViewHolder extends RecyclerView.ViewHolder {
 
             if (isArabic) {
                 String songName = model.getSongNameAr()!=null?model.getSongNameAr():model.getSongsNameAr();
+                String categoryName;
+
+                if(showInScreen==100){
+                    categoryName = model.getCategoryName();
+                    songName = songName+"~"+categoryName;
+                }
                 textViewSongName.setText(songName);
                 textViewArtistName.setText(model.getArtistNameAr());
+
             }
             else{
-                textViewSongName.setText(model.getSongName());
+                String songName = model.getSongName();
+
+                String categoryName;
+
+                if(showInScreen==100){
+                    categoryName = model.getCategoryName();
+                    songName = songName+"~"+categoryName;
+                }
+                textViewSongName.setText(songName);
                 textViewArtistName.setText(model.getArtistName());
             }
 

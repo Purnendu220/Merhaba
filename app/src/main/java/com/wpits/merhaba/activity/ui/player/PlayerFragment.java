@@ -565,6 +565,7 @@ private void trackProgress(){
         VolleyLog.DEBUG = true;
         VolleyLog.setTag("Volley");
         Log.isLoggable("Volley", Log.VERBOSE);
+        Log.d("GIFT",JsonUtils.toJson(request));
 
         JsonObjectRequest jsonArrayRequest=new JsonObjectRequest(Request.Method.POST, url, request, new Response.Listener<JSONObject>() {
 

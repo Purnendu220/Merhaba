@@ -74,7 +74,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     public final int searchById = 3;
 
     int searchBy = searchByName;
-
+    private List<Song> songsList= new ArrayList<>();
 
 
 
@@ -132,7 +132,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             KeyboardUtils.open(binding.editTextSearch, context);
         }
 
-        songsListAdapter=new SongsListViewAllAdapter(context,0,false,this);
+        songsListAdapter=new SongsListViewAllAdapter(context,100,false,this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         binding.recyclerViewSearch.setLayoutManager(mLayoutManager);
         binding.recyclerViewSearch.setItemAnimator(new DefaultItemAnimator());
@@ -356,11 +356,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     private List<Song> searchApi(String search) {
 
-        final List<Song> songsList = new ArrayList<Song>();
+         songsList = new ArrayList<Song>();
         String album_url = null;
         if(isArabic){
             if(searchBy == searchByName){
-                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongNameAr?songName="+search;
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentSearch?search="+search;
 
             }
             else if(searchBy == searchById){
@@ -376,7 +376,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             }
         }else{
             if(searchBy == searchByName){
-                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongName?songName="+search;
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentSearch?search="+search;
 
             }
            else if(searchBy == searchById){
@@ -446,7 +446,10 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
                         Log.d("Songs", categoryId+" "+catCategoryId);
 
+                        if(!ifListHaveSong(song)){
                             songsList.add(song);
+
+                        }
 
 
                     }
@@ -486,6 +489,15 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         MySingleton.getInstance(context).addToRequest(albumRequest);
 
         return songsList;
+    }
+    private boolean ifListHaveSong(Song model){
+        for (Song song:songsList) {
+
+            if(model.getSongId().equals(song.getSongId())){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -107,7 +107,7 @@ public class SongsListViewAllAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_CLASS) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_vertical_items_new, parent, false);
-            return new SongVerticalItemViewHolder(view);
+            return new SongVerticalItemViewHolder(view,shownInScreen);
 
         } else if (viewType == VIEW_TYPE_LOADER) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_list_progress, parent, false);
