@@ -37,6 +37,7 @@ import com.example.jean.jcplayer.JcPlayerManagerListener;
 import com.example.jean.jcplayer.general.JcStatus;
 import com.example.jean.jcplayer.model.JcAudio;
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.activity.PlayerActivity;
@@ -561,13 +562,26 @@ private void trackProgress(){
         progressDialog.setMessage("Processing...");
         progressDialog.show();
         progressDialog.setCancelable(false);
-        GiftRequest request = new GiftRequest(giftee,gifter,"GIFT",songId+"",1,"false");
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("giftee", giftee);
+            jsonRequest.put("gifter", gifter);
+            jsonRequest.put("mode", "GIFT");
+            jsonRequest.put("rbtID", songId+"");
+            jsonRequest.put("remdur", 1);
+            jsonRequest.put("reminder", "false");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        GiftRequest request = new GiftRequest("920001472","925331856","GIFT","917",1,"false");
         VolleyLog.DEBUG = true;
         VolleyLog.setTag("Volley");
         Log.isLoggable("Volley", Log.VERBOSE);
-        Log.d("GIFT",JsonUtils.toJson(request));
+        Log.d("GIFT",JsonUtils.toJson(jsonRequest));
 
-        JsonObjectRequest jsonArrayRequest=new JsonObjectRequest(Request.Method.POST, url, request, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonArrayRequest=new JsonObjectRequest(Request.Method.POST, url, jsonRequest, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -626,7 +640,7 @@ private void trackProgress(){
                 return params;
             }
         };
-        phonenumberui.MySingleton.getInstance(mContext).addToRequest(jsonArrayRequest);
+        MySingleton.getInstance(mContext).addToRequest(jsonArrayRequest);
 
 
     }
