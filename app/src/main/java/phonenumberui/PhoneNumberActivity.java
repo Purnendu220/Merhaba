@@ -185,11 +185,11 @@ public class PhoneNumberActivity extends BaseActivity {
         etCountryCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utility.hideKeyBoardFromView(mActivity);
-                etPhoneNumber.setError(null);
-                Intent intent = new Intent(mActivity, CountryCodeActivity.class);
-                intent.putExtra("TITLE", getResources().getString(R.string.app_name));
-                startActivityForResult(intent, COUNTRYCODE_ACTION);
+//                Utility.hideKeyBoardFromView(mActivity);
+//                etPhoneNumber.setError(null);
+//                Intent intent = new Intent(mActivity, CountryCodeActivity.class);
+//                intent.putExtra("TITLE", getResources().getString(R.string.app_name));
+//                startActivityForResult(intent, COUNTRYCODE_ACTION);
             }
         });
         btnSendConfirmationCode.setOnClickListener(new View.OnClickListener() {
