@@ -42,6 +42,7 @@ public class AppConstant {
        String USER_LANGUAGE = "USER_LANGUAGE";
 
        String ALL_CATEGORIES = "ALL_CATEGORIES";
+       String ALL_BANNERS = "ALL_BANNERS";
 
        String IS_FIRST_RUN = "isFirstRun";
        String IS_FIREBASE_ID_UPDATED = "FirebaseIdUpdated";

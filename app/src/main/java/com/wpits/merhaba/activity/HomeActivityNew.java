@@ -287,4 +287,6 @@ public class HomeActivityNew extends BaseActivity implements ViewPager.OnPageCha
         MySingleton.getInstance(context).addToRequest(categoryRequest);
     }
 
+
+
 }

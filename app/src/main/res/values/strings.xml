@@ -1111,5 +1111,17 @@
     <string name="search_by_name">Search by song name</string>
     <string name="search_by_id">Search by song id</string>
     <string name="search_by_artist">Search by song artist</string>
+    <string name="birthday">Birthday</string>
+    <string name="full_name">Full name</string>
+    <string name="sex">Sex</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="city">City</string>
+    <string name="send">Send</string>
+    <string name="fullname_required">Full Name is required</string>
+    <string name="birthyear_required">Birth year is required</string>
+    <string name="city_required">City is required</string>
+    <string name="gender_required">Gender Required</string>
+    <string name="customer_detail_successfully">Customer details submited successfully</string>
 
 </resources>

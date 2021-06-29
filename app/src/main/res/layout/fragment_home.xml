@@ -32,7 +32,7 @@
             <ss.com.bannerslider.Slider
                 android:id="@+id/banner_slider1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 app:slider_interval="5000"
                 app:slider_loopSlides="true"
 

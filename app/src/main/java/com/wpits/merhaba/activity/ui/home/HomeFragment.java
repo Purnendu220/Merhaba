@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -36,6 +37,7 @@ import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.AddToFavRequest;
 import com.wpits.merhaba.model.BannerData;
+import com.wpits.merhaba.model.BannerModel;
 import com.wpits.merhaba.model.CategoryListModel;
 import com.wpits.merhaba.model.album.Song;
 import com.wpits.merhaba.model.category.Category;
@@ -50,7 +52,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import phonenumberui.PhoneNumberActivity;
 import pl.droidsonroids.gif.GifImageView;
@@ -152,8 +156,8 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
         getCategory();
        String bannerList =  RemoteConfigure.getFirebaseRemoteConfig(mContext).getRemoteConfigValue(RemoteConfigure.bannerJson);
        bannerData =JsonUtils.fromJson(bannerList, BannerData.class);
-        bannerSlider.setAdapter(new MainSliderAdapter(bannerData.getData()));
-
+       bannerSlider.setAdapter(new MainSliderAdapter(Utility.getBannerList(PrefrenceManager.getInstance().getAllBanners())));
+       getBanner();
 
 
 
@@ -298,7 +302,43 @@ public class HomeFragment extends Fragment implements ViewPagerFragmentSelection
     }
 
 
+    private void getBanner() {
+        String x="https://www.marhaba.com.ly:18083/banner/allBanners";
 
+        JsonObjectRequest categoryRequest=new JsonObjectRequest(Request.Method.GET, x, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                bannerSlider.setAdapter(new MainSliderAdapter(Utility.getBannerList(response)));
+                PrefrenceManager.getInstance().saveBanners(response.toString());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("BannerResponseError",error.toString());
+                bannerSlider.setAdapter(new MainSliderAdapter(bannerData.getData()));
+
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        }
+
+                ;
+        categoryRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MySingleton.getInstance(mContext).addToRequest(categoryRequest);
+    }
 
 
 

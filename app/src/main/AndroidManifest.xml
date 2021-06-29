@@ -13,9 +13,10 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_applogo"
         android:supportsRtl="false"
-        tools:replace="android:supportsRtl"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".activity.SearchActivity"></activity>
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        tools:replace="android:supportsRtl">
+        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.PlayerActivity" />
         <activity
             android:name=".activity.HomeActivityNew"

@@ -25,7 +25,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 if(!PrefrenceManager.getInstance().isLoggedIn()){
-                    Intent i = new Intent(SplashActivity.this, PhoneNumberActivity.class);
+                    Intent i = new Intent(SplashActivity.this, HomeActivityNew.class);
                     startActivity(i);
                     finish();
                 }else{

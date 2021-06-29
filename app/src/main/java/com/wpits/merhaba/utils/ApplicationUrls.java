@@ -10,5 +10,6 @@ public class ApplicationUrls {
      */
     public static final String subscribe = "https://www.marhaba.com.ly:18084/crbt/api/subscriber/ivr/subscription/";
     public static final String gift = "https://www.marhaba.com.ly/gift.jsp";
+    public static final String customerDetail = "https://www.marhaba.com.ly:18083/customerDetail";
 
 }

@@ -23,7 +23,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
+import com.wpits.merhaba.adapter.MainSliderAdapter;
 import com.wpits.merhaba.helper.PrefrenceManager;
+import com.wpits.merhaba.model.BannerModel;
 import com.wpits.merhaba.model.category.Category;
 
 import org.json.JSONArray;
@@ -154,6 +156,31 @@ public class Utility {
         }
 
     return allSampleData;
+    }
+    public static List<BannerModel> getBannerList(JSONObject response){
+        if(response!=null){
+            BannerModel bannerModel;
+            List<BannerModel> bannerList = new ArrayList<>();
+
+            Log.d("BannerResponse",response.toString());
+            try {
+                JSONArray data = response.getJSONArray("data");
+
+                for(int i=0;i<data.length();i++){
+                    JSONObject bannerContent=data.getJSONObject(i);
+                    bannerModel=new BannerModel(bannerContent.getInt("id"),bannerContent.getString("filePath"));
+                    bannerList.add(bannerModel);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+            }
+            return bannerList;
+        }
+        else{
+           return new ArrayList<BannerModel>();
+        }
     }
     public static String getCategoryName(List<Category> list,int categoryId,boolean isArabic) {
         String categoryName = "";
