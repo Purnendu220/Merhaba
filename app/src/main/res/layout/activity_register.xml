@@ -123,7 +123,7 @@
             >
 
             <RadioGroup
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/radioGroup"
                 android:orientation="horizontal"
@@ -136,7 +136,11 @@
                     android:text="@string/male"
                     android:layout_marginTop="20dp"
                     android:checked="false"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:textColor="@color/textColorHead"
+                    style="@style/MyRadioButtonStyle"
+
+                    />
 
                 <RadioButton
                     android:id="@+id/radioFemale"
@@ -145,8 +149,12 @@
                     android:text="@string/female"
                     android:layout_marginTop="20dp"
                     android:checked="false"
-
-                    android:textSize="20dp" />
+                    android:textColor="@color/textColorHead"
+                    style="@style/MyRadioButtonStyle"
+                    android:textSize="20dp"
+                    android:drawableTint="@color/colorPrimary"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    />
             </RadioGroup>
 
 
@@ -185,7 +193,7 @@
                 android:textColor="@color/textColorHead"
                 android:layout_toRightOf="@+id/ll_cc"
                 android:backgroundTint="@android:color/transparent"
-                android:inputType="phone"
+                android:inputType="text"
                 android:paddingEnd="4dp"
                 android:paddingStart="4dp"
                 />

@@ -66,6 +66,7 @@
     <dimen name="margin_40">40dp</dimen>
     <dimen name="margin_25">25dp</dimen>
     <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_60">60dp</dimen>
     <item name="button_letter_spacing_very_little" format="float" type="dimen">-0.01</item>
     <item name="button_letter_spacing" type="dimen" format="float">0.04</item>
 </resources>
