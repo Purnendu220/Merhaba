@@ -27,6 +27,7 @@ public class RemoteConfigure {
     public static final String new_arrival_en="New_Arrival_En";
     public static final String new_arrival_ar="New_Arrival_Ar";
     public static final String crash_app="Crash_App";
+    public static final String cityJson="city_list";
 
 
 

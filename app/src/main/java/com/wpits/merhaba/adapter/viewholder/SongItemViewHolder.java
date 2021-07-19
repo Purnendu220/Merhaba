@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.adapter.AdapterCallbacks;
 import com.wpits.merhaba.model.album.Song;
@@ -46,6 +48,19 @@ public class SongItemViewHolder extends RecyclerView.ViewHolder {
         if (data != null && data instanceof Song) {
             final Song model = (Song) data;
             itemView.setVisibility(View.VISIBLE);
+
+            Picasso.get()
+                    .load(model.getAlbumArt())
+                    .into(imageViewClass,new Callback() {
+                        @Override
+                        public void onSuccess() {
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
             if(isArabic){
                 textViewSongName.setText(model.getSongsNameAr());
                 textViewArtistName.setText(model.getArtistNameAr());
@@ -57,7 +72,7 @@ public class SongItemViewHolder extends RecyclerView.ViewHolder {
                 textViewAlbum.setText(model.getCategoryName());
             }
 
-            imgPlay.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     adapterCallbacks.onAdapterItemClick(SongItemViewHolder.this,imgPlay,data,position);

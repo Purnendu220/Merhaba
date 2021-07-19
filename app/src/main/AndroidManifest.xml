@@ -15,7 +15,8 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:replace="android:supportsRtl">
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.AppIntroActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.PlayerActivity" />
         <activity

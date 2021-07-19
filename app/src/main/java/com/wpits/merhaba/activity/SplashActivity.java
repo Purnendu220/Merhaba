@@ -29,7 +29,7 @@ public class SplashActivity extends BaseActivity {
                     startActivity(i);
                     finish();
                 }else{
-                    Intent i = new Intent(SplashActivity.this, HomeActivityNew.class);
+                    Intent i = new Intent(SplashActivity.this, AppIntroActivity.class);
                     startActivity(i);
                     finish();
                 }

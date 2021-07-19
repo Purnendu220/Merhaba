@@ -3,6 +3,7 @@ package com.wpits.merhaba.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -29,7 +32,11 @@ import com.google.gson.Gson;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
+import com.wpits.merhaba.model.BannerData;
+import com.wpits.merhaba.model.CitiListModel;
+import com.wpits.merhaba.model.City;
 import com.wpits.merhaba.model.album.Song;
+import com.wpits.merhaba.remoteConfig.RemoteConfigure;
 import com.wpits.merhaba.utils.ApplicationUrls;
 import com.wpits.merhaba.utils.GiftRequest;
 import com.wpits.merhaba.utils.MySingleton;
@@ -37,6 +44,7 @@ import com.wpits.merhaba.utils.MySingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,12 +52,20 @@ import phonenumberui.PhoneNumberActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private AppCompatEditText edtFullName,edtBirthYear,edtCity;
+    private AppCompatEditText edtFullName;
     private RadioGroup radioGroup;
     private RadioButton radioMale,radioFemale;
     private AppCompatButton btnSendConfirmationCode;
     private String gender;
     private Context mContext;
+    private AppCompatSpinner edtBirthYear,edtCity;
+    private ArrayList<String> yearList= new ArrayList<>();
+    private ArrayList<String> cityList= new ArrayList<>();
+
+    int year=1900;
+    String selectedYear,SelectedCity;
+    CitiListModel city;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +75,17 @@ public class RegisterActivity extends AppCompatActivity {
         edtBirthYear = findViewById(R.id.edtBirthYear);
         edtCity = findViewById(R.id.edtCity);
         btnSendConfirmationCode = findViewById(R.id.btnSendConfirmationCode);
+        String bannerList =  RemoteConfigure.getFirebaseRemoteConfig(mContext).getRemoteConfigValue(RemoteConfigure.cityJson);
+        city =JsonUtils.fromJson(bannerList, CitiListModel.class);
+        yearList.add("Select Year");
+
+        for (int i = 0; i < 120; i++) {
+            yearList.add((year+i)+"");
+        }
+        for (City data:city.getCities()) {
+            cityList.add(data.getCity());
+
+        }
 
         radioGroup = findViewById(R.id.radioGroup);
 
@@ -80,12 +107,52 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.simple_spinner_item_new, yearList);
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item_new);
+        edtBirthYear.setAdapter(adapter);
+        edtBirthYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                    return;
+                }
+                 selectedYear = yearList.get(i);
+                Toast.makeText(RegisterActivity.this, "Year Name: " + selectedYear, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        ArrayAdapter adapterCity = new ArrayAdapter<>(this, R.layout.simple_spinner_item_new, cityList);
+        adapterCity.setDropDownViewResource(R.layout.simple_spinner_dropdown_item_new);
+        edtCity.setAdapter(adapterCity);
+        edtCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0) {
+                return;
+                }
+
+                SelectedCity = cityList.get(i);
+                Toast.makeText(RegisterActivity.this, "City Name: " + SelectedCity, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         btnSendConfirmationCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
              String fullName =   edtFullName.getText().toString() ;
-             String birthName = edtBirthYear.getText().toString() ;
-             String city = edtCity.getText().toString() ;
+             String birthName = selectedYear ;
+             String city = SelectedCity; ;
              if(fullName==null||fullName.trim().length()==0){
                  Toast.makeText(RegisterActivity.this, getResources().getString(R.string.fullname_required), Toast.LENGTH_SHORT).show();
           return;

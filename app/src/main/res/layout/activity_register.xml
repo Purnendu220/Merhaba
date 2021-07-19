@@ -82,17 +82,16 @@
             android:orientation="horizontal"
             android:background="@drawable/rounded_edit_text"
             android:paddingLeft="@dimen/margin_5"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10"
+
             >
 
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/edtBirthYear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/textColorHead"
-                android:layout_toRightOf="@+id/ll_cc"
-                android:backgroundTint="@android:color/transparent"
-                android:inputType="phone"
                 android:paddingEnd="4dp"
                 android:paddingStart="4dp"
                 />
@@ -183,17 +182,16 @@
             android:orientation="horizontal"
             android:background="@drawable/rounded_edit_text"
             android:paddingLeft="@dimen/margin_5"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingBottom="@dimen/margin_10"
+
             >
 
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/edtCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/textColorHead"
-                android:layout_toRightOf="@+id/ll_cc"
-                android:backgroundTint="@android:color/transparent"
-                android:inputType="text"
                 android:paddingEnd="4dp"
                 android:paddingStart="4dp"
                 />

@@ -71,6 +71,7 @@ dependencies {
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
 
     implementation 'org.greenrobot:eventbus:3.2.0'
+    implementation 'com.github.AppIntro:AppIntro:6.1.0'
 
 
 
