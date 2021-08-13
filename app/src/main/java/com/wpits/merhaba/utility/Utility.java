@@ -112,7 +112,7 @@ public class Utility {
         });
     }
     public static boolean getFavStatus(String status){
-        if(status==null||status.equalsIgnoreCase("Not Favorite")){
+        if(status==null||status.equalsIgnoreCase("null")||status.equalsIgnoreCase("Not Favorite")){
             return false;
         }else{
             return true;

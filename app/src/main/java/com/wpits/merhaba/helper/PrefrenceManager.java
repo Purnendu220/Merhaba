@@ -52,6 +52,14 @@ public class PrefrenceManager {
     public void setFirstRun(boolean b) {
         prefrence.putBoolean(AppConstant.Prefrences.IS_FIRST_RUN,b);
     }
+
+    public boolean isShowAppIntro() {
+        return prefrence.getBoolean(AppConstant.Prefrences.IS_SHOW_APP_INTRO,true);
+    }
+
+    public void setShowAppIntro(boolean b) {
+        prefrence.putBoolean(AppConstant.Prefrences.IS_SHOW_APP_INTRO,b);
+    }
     public boolean isFirebaseIdUpdated() {
         return prefrence.getBoolean(AppConstant.Prefrences.IS_FIREBASE_ID_UPDATED,false);
     }

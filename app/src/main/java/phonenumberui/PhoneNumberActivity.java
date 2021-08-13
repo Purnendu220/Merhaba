@@ -651,6 +651,10 @@ public class PhoneNumberActivity extends BaseActivity {
                 etDigit2.getText().toString().trim() +
                 etDigit3.getText().toString().trim() +
                 etDigit4.getText().toString().trim() ;
+        if(mVerificationId==null||mVerificationId.trim().length()==0){
+            Toast.makeText(getApplicationContext(),"Please enter OTP than validate.",Toast.LENGTH_SHORT).show();
+return;
+        }
 
         String url = ApplicationUrls.validateOtp;
         url = url+mobile+"/"+mVerificationId;
@@ -769,9 +773,12 @@ public class PhoneNumberActivity extends BaseActivity {
         if (!validate()) {
             llContinue.setAlpha(.5f);
             btnContinue.setClickable(false);
+            llContinue.setClickable(false);
+
         } else {
             llContinue.setAlpha(1.0f);
             btnContinue.setClickable(true);
+            llContinue.setClickable(true);
         }
     }
     class ButtonClickListener implements View.OnClickListener{

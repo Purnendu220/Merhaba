@@ -33,11 +33,16 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.jean.jcplayer.JcPlayerManagerListener;
 import com.example.jean.jcplayer.general.JcStatus;
 import com.example.jean.jcplayer.model.JcAudio;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.novoda.sax.RootElement;
+import com.novoda.sexp.RootTag;
+import com.novoda.sexp.Streamer;
+import com.novoda.sexp.finder.ElementFinder;
 import com.squareup.picasso.Picasso;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.activity.PlayerActivity;
@@ -62,10 +67,22 @@ import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import phonenumberui.PhoneNumberActivity;
 
@@ -440,13 +457,13 @@ private void trackProgress(){
     private void subscribe(final String mobile, String songId){
         String url = ApplicationUrls.subscribe;
         url = url+ mobile+"/"+songId;
+        String urlBalance = ApplicationUrls.balanceCheck;
+        urlBalance = urlBalance +mobile;
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Processing...");
         progressDialog.show();
-
-
-        JsonObjectRequest jsonArrayRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        final JsonObjectRequest jsonArrayRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 progressDialog.dismiss();
@@ -514,8 +531,107 @@ private void trackProgress(){
                 return params;
             }
         };
+        StringRequest req = new StringRequest(Request.Method.GET, urlBalance,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                       double balance=  getUserBalance(response);
+                       if(balance>=100000){
+                             phonenumberui.MySingleton.getInstance(mContext).addToRequest(jsonArrayRequest);
 
-        phonenumberui.MySingleton.getInstance(mContext).addToRequest(jsonArrayRequest);
+                       }else{
+                           progressDialog.dismiss();
+                           Toast.makeText(mContext, mContext.getResources().getString(R.string.do_not_have_enough_bal), Toast.LENGTH_LONG).show();
+                           if(myDialog.isShowing()){
+                               myDialog.dismiss();
+                           }
+                       }
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                    }
+                }
+        ){
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+
+
+        phonenumberui.MySingleton.getInstance(mContext).addToRequest(req);
+
+    }
+
+    private double getUserBalance(String response) {
+        double balanceValue=0;
+
+        try {
+            InputStream stream = new ByteArrayInputStream(response.getBytes
+                    (Charset.forName("UTF-8")));
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = null;
+            doc = dBuilder.parse(stream);
+            Element element=doc.getDocumentElement();
+            element.normalize();
+
+            NodeList nList = doc.getElementsByTagName("QryUserBasicBalResponse");
+            for (int i=0; i<nList.getLength(); i++) {
+                Node node = nList.item(i);
+                for (int j=0; j<node.getChildNodes().getLength(); j++) {
+                    Node child =node.getChildNodes().item(j);
+                    for (int k=0; k<child.getChildNodes().getLength(); k++) {
+                        Node subCHild = child.getChildNodes().item(k);
+                        if(subCHild.getNodeName().equalsIgnoreCase("BalanceDtoList")){
+                            if(subCHild.getChildNodes()!=null&&subCHild.getChildNodes().getLength()>0){
+                                Node balDTO= subCHild.getChildNodes().item(0);
+                                for (int l=0; l<balDTO.getChildNodes().getLength(); l++) {
+                                    Node balDtoItem = balDTO.getChildNodes().item(l);
+                                    if(balDtoItem.getNodeName().equalsIgnoreCase("BalanceValue")){
+                                        try{
+                                            balanceValue =Double.parseDouble(balDtoItem.getChildNodes().item(0).getNodeValue());
+
+                                        }catch (Exception e){
+
+                                        }
+
+                                    }
+
+
+                                }
+                            }
+                        }
+
+
+                    }
+
+
+                }
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  balanceValue;
     }
 
     private void showGift( final Song song){
@@ -557,6 +673,8 @@ private void trackProgress(){
         Integer songId = song.getSongId();
         String gifter = PrefrenceManager.getInstance().getUserMobile()+"";
         String url = ApplicationUrls.gift;
+        String urlBalance = ApplicationUrls.balanceCheck;
+        urlBalance = urlBalance +gifter;
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("Processing...");
@@ -581,7 +699,7 @@ private void trackProgress(){
         Log.isLoggable("Volley", Log.VERBOSE);
         Log.d("GIFT",JsonUtils.toJson(jsonRequest));
 
-        JsonObjectRequest jsonArrayRequest=new JsonObjectRequest(Request.Method.POST, url, jsonRequest, new Response.Listener<JSONObject>() {
+        final JsonObjectRequest jsonArrayRequest=new JsonObjectRequest(Request.Method.POST, url, jsonRequest, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -640,7 +758,48 @@ private void trackProgress(){
                 return params;
             }
         };
-        MySingleton.getInstance(mContext).addToRequest(jsonArrayRequest);
+        StringRequest req = new StringRequest(Request.Method.GET, urlBalance,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        double balance=  getUserBalance(response);
+                        if(balance>=100000){
+                            MySingleton.getInstance(mContext).addToRequest(jsonArrayRequest);
+
+                        }else{
+                            progressDialog.dismiss();
+                            Toast.makeText(mContext, mContext.getResources().getString(R.string.do_not_have_enough_bal), Toast.LENGTH_LONG).show();
+                            if(myDialog.isShowing()){
+                                myDialog.dismiss();
+                            }
+                        }
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                    }
+                }
+        ){
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+
+
+        MySingleton.getInstance(mContext).addToRequest(req);
 
 
     }
@@ -817,5 +976,29 @@ private void trackProgress(){
 
         MySingleton.getInstance(mContext).addToRequest(addToFavRequestRequest);
     }
+    private static class SimpleStreamer implements Streamer<String> {
 
+        private final ElementFinder<String> elementFinder;
+        private final String elementTag;
+
+        public SimpleStreamer(ElementFinder<String> elementFinder, String elementTag) {
+            this.elementFinder = elementFinder;
+            this.elementTag = elementTag;
+        }
+
+        @Override
+        public RootTag getRootTag() {
+            return RootTag.create("novoda");
+        }
+
+        @Override
+        public void stream(RootElement rootElement) {
+            elementFinder.find(rootElement, elementTag);
+        }
+
+        @Override
+        public String getStreamResult() {
+            return elementFinder.getResultOrThrow();
+        }
+    }
 }

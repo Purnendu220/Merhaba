@@ -24,11 +24,12 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void run() {
-                if(!PrefrenceManager.getInstance().isLoggedIn()){
+                if(!PrefrenceManager.getInstance().isShowAppIntro()){
                     Intent i = new Intent(SplashActivity.this, HomeActivityNew.class);
                     startActivity(i);
                     finish();
                 }else{
+                    PrefrenceManager.getInstance().setShowAppIntro(false);
                     Intent i = new Intent(SplashActivity.this, AppIntroActivity.class);
                     startActivity(i);
                     finish();

@@ -45,6 +45,8 @@ public class AppConstant {
        String ALL_BANNERS = "ALL_BANNERS";
 
        String IS_FIRST_RUN = "isFirstRun";
+       String IS_SHOW_APP_INTRO = "isShowAppIntro";
+
        String IS_FIREBASE_ID_UPDATED = "FirebaseIdUpdated";
        String USER_DATA = "user_data";
 

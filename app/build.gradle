@@ -72,6 +72,8 @@ dependencies {
 
     implementation 'org.greenrobot:eventbus:3.2.0'
     implementation 'com.github.AppIntro:AppIntro:6.1.0'
+    implementation 'com.novoda:sexp:1.0.8'
+
 
 
 
