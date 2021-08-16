@@ -6,7 +6,8 @@
         <value>{
             "cities": [
             {
-            "city": "Select City"
+            "city": "Select City",
+            "city_ar":"اختر مدينة"
             },
             {
             "city": "Tripoli",

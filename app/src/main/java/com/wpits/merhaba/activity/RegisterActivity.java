@@ -37,6 +37,7 @@ import com.wpits.merhaba.model.CitiListModel;
 import com.wpits.merhaba.model.City;
 import com.wpits.merhaba.model.album.Song;
 import com.wpits.merhaba.remoteConfig.RemoteConfigure;
+import com.wpits.merhaba.utility.Utility;
 import com.wpits.merhaba.utils.ApplicationUrls;
 import com.wpits.merhaba.utils.GiftRequest;
 import com.wpits.merhaba.utils.MySingleton;
@@ -62,28 +63,37 @@ public class RegisterActivity extends AppCompatActivity {
     private ArrayList<String> yearList= new ArrayList<>();
     private ArrayList<String> cityList= new ArrayList<>();
 
-    int year=1900;
+    int year=1950;
     String selectedYear,SelectedCity;
     CitiListModel city;
+    boolean isArabic = Utility.isArabic();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        mContext = this;
+
         edtFullName = findViewById(R.id.edtFullName);
         edtBirthYear = findViewById(R.id.edtBirthYear);
         edtCity = findViewById(R.id.edtCity);
         btnSendConfirmationCode = findViewById(R.id.btnSendConfirmationCode);
         String bannerList =  RemoteConfigure.getFirebaseRemoteConfig(mContext).getRemoteConfigValue(RemoteConfigure.cityJson);
         city =JsonUtils.fromJson(bannerList, CitiListModel.class);
-        yearList.add("Select Year");
+        yearList.add(mContext.getResources().getString(R.string.select_year));
 
         for (int i = 0; i < 120; i++) {
             yearList.add((year+i)+"");
         }
         for (City data:city.getCities()) {
-            cityList.add(data.getCity());
+            if(isArabic&&data.getCity_ar()!=null){
+                cityList.add(data.getCity_ar());
+
+            }else{
+                cityList.add(data.getCity());
+
+            }
 
         }
 
@@ -91,7 +101,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         radioMale = findViewById(R.id.radioMale);
         radioFemale = findViewById(R.id.radioFemale);
-        mContext = this;
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

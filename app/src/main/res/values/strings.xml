@@ -1124,5 +1124,6 @@
     <string name="gender_required">Gender Required</string>
     <string name="customer_detail_successfully">Customer details submited successfully</string>
     <string name="do_not_have_enough_bal">User do not have enough balance to subscribe.</string>
+    <string name="select_year">Select Year</string>
 
 </resources>

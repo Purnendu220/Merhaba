@@ -1126,5 +1126,6 @@
     <string name="gender_required">Gender مطلوبة</string>
     <string name="customer_detail_successfully">تم إرسال تفاصيل العميل بنجاح</string>
     <string name="do_not_have_enough_bal">لا يملك المستخدم رصيدًا كافيًا للاشتراك.</string>
+    <string name="select_year">حدد السنة</string>
 
 </resources>

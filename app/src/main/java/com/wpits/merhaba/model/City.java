@@ -5,6 +5,7 @@ package com.wpits.merhaba.model;
 public class City {
 
     private String city;
+    private String city_ar;
     private String lat;
     private String lng;
     private String country;
@@ -86,4 +87,11 @@ public class City {
         this.populationProper = populationProper;
     }
 
+    public String getCity_ar() {
+        return city_ar;
+    }
+
+    public void setCity_ar(String city_ar) {
+        this.city_ar = city_ar;
+    }
 }

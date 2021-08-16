@@ -24,5 +24,6 @@
     android:layout_height="wrap_content"
     android:ellipsize="marquee"
     android:textColor="@color/black"
-    android:padding="@dimen/margin_5"
+    android:padding="@dimen/margin_10"
+    android:background="@color/white"
     />
