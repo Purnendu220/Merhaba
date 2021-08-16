@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout"
     android:layout_marginLeft="@dimen/margin_4"
@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/cardViewClass"
         style="@style/CardViewProfileLarge"
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:scaleType="centerCrop"
             android:src="@color/black_transparent" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/textViewGymName"
@@ -100,4 +100,4 @@
         android:textSize="@dimen/text_large"
         app:layout_constraintLeft_toLeftOf="@id/cardViewClass"
         app:layout_constraintTop_toTopOf="@id/cardViewClass" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,18 +3,18 @@ package com.wpits.merhaba.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,12 +25,9 @@ import com.example.jean.jcplayer.model.JcAudio;
 import com.example.jean.jcplayer.view.JcPlayerView;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.adapter.AdapterCallbacks;
-import com.wpits.merhaba.adapter.SongsListAdapter;
 import com.wpits.merhaba.adapter.SongsListViewAllAdapter;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
-import com.wpits.merhaba.model.AddToFavRequest;
-import com.wpits.merhaba.model.album.Content;
 import com.wpits.merhaba.model.album.Song;
 import com.wpits.merhaba.utility.Utility;
 import com.wpits.merhaba.utils.MySingleton;
@@ -48,7 +45,7 @@ import java.util.Map;
 import phonenumberui.PhoneNumberActivity;
 import pl.droidsonroids.gif.GifImageView;
 
-public class SongActivity extends AppCompatActivity implements AdapterCallbacks<Object> {
+public class SongActivity extends BaseActivity implements AdapterCallbacks<Object> {
 
     RecyclerView songRecycler;
     Toolbar mToolbar;
@@ -56,7 +53,7 @@ public class SongActivity extends AppCompatActivity implements AdapterCallbacks<
     SongsListViewAllAdapter songsListAdapter;
     Context mContext;
     JcPlayerView jcplayerView;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
     int categoryId;
 
     public static void open(Context context,int categoryId){
@@ -115,11 +112,11 @@ public class SongActivity extends AppCompatActivity implements AdapterCallbacks<
 
                     for(int i=0;i<data.length();i++){
 
-                        JSONObject topContent=data.getJSONObject(i);
+                        JSONObject songContent=data.getJSONObject(i);
                         //JSONObject categoryContent=categoryList.getJSONObject("album");
-                        Log.d("Songs", topContent.toString());
-                        JSONObject songContent = topContent.getJSONObject("topContent");
-                        String favStatus = topContent.getString("favStatus");
+                        Log.d("Songs", songContent.toString());
+                       // JSONObject songContent = topContent.getJSONObject("topContent");
+                        //String favStatus = topContent.getString("favStatus");
                         int id = songContent.getInt("id");
                         int songId =songContent.getInt("songId");
                         String songName =songContent.getString("songName");
@@ -145,8 +142,13 @@ public class SongActivity extends AppCompatActivity implements AdapterCallbacks<
                         song.setSongsNameAr(songsNameAr);
                         song.setContentPathLocation(contentPathLocation);
                         song.setSongId(songId);
-                        song.setFavStatus(Utility.getFavStatus(favStatus));
+                        try{
+                            String favStatus = songContent.getString("favStatus");
+                            song.setFavStatus(Utility.getFavStatus(favStatus));
 
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                         Log.d("Songs", categoryId+" "+catCategoryId);
 
                         if(catCategoryId == categoryId) {
@@ -186,6 +188,9 @@ public class SongActivity extends AppCompatActivity implements AdapterCallbacks<
             }
         }
                 ;
+        albumRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(mContext).addToRequest(albumRequest);
 
         return songsList;

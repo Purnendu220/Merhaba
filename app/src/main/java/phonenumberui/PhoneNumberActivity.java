@@ -23,12 +23,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -36,12 +36,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import phonenumberui.countrycode.Country;
@@ -57,21 +55,19 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.wpits.merhaba.MainActivity;
 import com.wpits.merhaba.R;
+import com.wpits.merhaba.activity.BaseActivity;
+import com.wpits.merhaba.activity.HomeActivityNew;
+import com.wpits.merhaba.activity.RegisterActivity;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
-import com.wpits.merhaba.model.album.Song;
 import com.wpits.merhaba.utils.ApplicationUrls;
 import com.wpits.merhaba.utils.VerifyOtpModel;
 
-import phonenumberui.VerificationCodeActivity;
 
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -83,7 +79,7 @@ import io.michaelrocks.libphonenumber.android.NumberParseException;
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil;
 import io.michaelrocks.libphonenumber.android.Phonenumber;
 
-public class PhoneNumberActivity extends AppCompatActivity {
+public class PhoneNumberActivity extends BaseActivity {
 
     private AppCompatEditText etCountryCode;
     private AppCompatEditText etPhoneNumber;
@@ -190,11 +186,11 @@ public class PhoneNumberActivity extends AppCompatActivity {
         etCountryCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utility.hideKeyBoardFromView(mActivity);
-                etPhoneNumber.setError(null);
-                Intent intent = new Intent(mActivity, CountryCodeActivity.class);
-                intent.putExtra("TITLE", getResources().getString(R.string.app_name));
-                startActivityForResult(intent, COUNTRYCODE_ACTION);
+//                Utility.hideKeyBoardFromView(mActivity);
+//                etPhoneNumber.setError(null);
+//                Intent intent = new Intent(mActivity, CountryCodeActivity.class);
+//                intent.putExtra("TITLE", getResources().getString(R.string.app_name));
+//                startActivityForResult(intent, COUNTRYCODE_ACTION);
             }
         });
         btnSendConfirmationCode.setOnClickListener(new View.OnClickListener() {
@@ -655,6 +651,10 @@ public class PhoneNumberActivity extends AppCompatActivity {
                 etDigit2.getText().toString().trim() +
                 etDigit3.getText().toString().trim() +
                 etDigit4.getText().toString().trim() ;
+        if(mVerificationId==null||mVerificationId.trim().length()==0){
+            Toast.makeText(getApplicationContext(),"Please enter OTP than validate.",Toast.LENGTH_SHORT).show();
+return;
+        }
 
         String url = ApplicationUrls.validateOtp;
         url = url+mobile+"/"+mVerificationId;
@@ -692,7 +692,7 @@ public class PhoneNumberActivity extends AppCompatActivity {
 
 
                     Toast.makeText(getApplicationContext(),"Mobile number verification successful.",Toast.LENGTH_SHORT).show();
-                    Intent mainIntent = new Intent(PhoneNumberActivity.this, MainActivity.class);
+                    Intent mainIntent = new Intent(PhoneNumberActivity.this, RegisterActivity.class);
                     PhoneNumberActivity.this.startActivity(mainIntent);
                     PhoneNumberActivity.this.finish();
                 }else if(response!=null && response.toString().contains("OTP does not matched")){
@@ -773,9 +773,12 @@ public class PhoneNumberActivity extends AppCompatActivity {
         if (!validate()) {
             llContinue.setAlpha(.5f);
             btnContinue.setClickable(false);
+            llContinue.setClickable(false);
+
         } else {
             llContinue.setAlpha(1.0f);
             btnContinue.setClickable(true);
+            llContinue.setClickable(true);
         }
     }
     class ButtonClickListener implements View.OnClickListener{

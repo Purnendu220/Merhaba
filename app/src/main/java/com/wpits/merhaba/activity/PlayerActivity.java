@@ -2,25 +2,25 @@ package com.wpits.merhaba.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.wpits.merhaba.R;
-import com.wpits.merhaba.adapter.AdapterCallbacks;
+import com.wpits.merhaba.activity.ui.player.PlayerFragment;
 import com.wpits.merhaba.adapter.PlayerViewPagerAdapter;
-import com.wpits.merhaba.adapter.ViewPagerAdapter;
-import com.wpits.merhaba.databinding.ActivityHomeNewBinding;
 import com.wpits.merhaba.databinding.ActivityPlayerBinding;
 import com.wpits.merhaba.helper.PrefrenceManager;
 import com.wpits.merhaba.model.album.Song;
@@ -38,11 +38,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+import phonenumberui.PhoneNumberActivity;
+
+public class PlayerActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
     ActivityPlayerBinding binding;
     Context context;
-    boolean isArabic = Utility.isArabic;
-    private PlayerViewPagerAdapter viewPagerAdapter;
+    boolean isArabic = Utility.isArabic();
+    public PlayerViewPagerAdapter viewPagerAdapter;
     private List<Song> mListSongs = new ArrayList<>();
     private int INITIAL_POSITION = 0;
     public boolean isSuffleOn,isRepeatOn;
@@ -69,9 +71,24 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
         context = this;
         binding.toolbar.tvHeaderSearchIco.setVisibility(View.GONE);
         binding.toolbar.tvHeaderDrawerIco.setVisibility(View.GONE);
+
         navigatedFrom = getIntent().getIntExtra(AppConstant.DataKey.NAVIGATED_FROM_INT, -1);
         categoryId = getIntent().getIntExtra(AppConstant.DataKey.CATEGORY_ID,0);
         currentSong = (Song) getIntent().getSerializableExtra(AppConstant.DataKey.SONG_DATA);
+        String catName = Utility.getCategoryName(PrefrenceManager.getInstance().getAllCategories(),categoryId,isArabic);
+        if(isArabic){
+            binding.toolbar.tvHeaderTitle.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_app_name_ico_ar));
+
+        }else{
+            binding.toolbar.tvHeaderTitle.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_app_name_ico));
+
+        }
+        if(catName!=null&&catName.length()>0){
+        binding.toolbar.tvHeaderTitle.setVisibility(View.GONE);
+        binding.toolbar.toolbar.setTitle(catName);
+
+    }
+
         if(navigatedFrom==AppConstant.Navigated.FROM_FAVOURITES){
             getFavList();
         }else{
@@ -100,12 +117,11 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
                     for(int i=0;i<data.length();i++){
 
 
-                        JSONObject topContent=data.getJSONObject(i);
+                        JSONObject songContent=data.getJSONObject(i);
                         //JSONObject categoryContent=categoryList.getJSONObject("album");
-                        Log.d("Songs", topContent.toString());
-                        JSONObject songContent = topContent.getJSONObject("topContent");
-                        String favStatus = topContent.getString("favStatus");                        //JSONObject categoryContent=categoryList.getJSONObject("album");
                         Log.d("Songs", songContent.toString());
+                       // JSONObject songContent = topContent.getJSONObject("topContent");
+                        //String favStatus = topContent.getString("favStatus");                        //JSONObject categoryContent=categoryList.getJSONObject("album");
 
 
                         //JSONObject songContent = data.getJSONObject(i);
@@ -134,8 +150,14 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
                         song.setSongsNameAr(songsNameAr);
                         song.setContentPathLocation(contentPathLocation);
                         song.setSongId(songId);
-                        song.setFavStatus(Utility.getFavStatus(favStatus));
+                        song.setId(id);
+                        try{
+                            String favStatus = songContent.getString("favStatus");
+                            song.setFavStatus(Utility.getFavStatus(favStatus));
 
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                         Log.d("Songs", categoryId+" "+catCategoryId);
 
                         if(catCategoryId == categoryId) {
@@ -176,6 +198,9 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
             }
         }
                 ;
+        albumRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context).addToRequest(albumRequest);
 
         return songsList;
@@ -207,7 +232,9 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
 
             }
         });
-
+        addToFavRequestRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context).addToRequest(addToFavRequestRequest);
     }
 
@@ -233,6 +260,7 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
             }
 
         }
+
         binding.viewPager.setCurrentItem(INITIAL_POSITION);
         binding.viewPager.setOnTouchListener(new View.OnTouchListener() {
 
@@ -240,6 +268,14 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
                 return true;
             }
         });
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                onPageSelected(INITIAL_POSITION);
+
+            }
+        }, 500);
     }
 
     public void openNextSong(){
@@ -278,6 +314,7 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
         isRepeatOn  = !isRepeatOn;
         return isRepeatOn;
     }
+
     public void  playNext(){
         if(binding.viewPager.getCurrentItem()<viewPagerAdapter.getCount()-1){
             binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem()+1);
@@ -305,11 +342,23 @@ public class PlayerActivity extends AppCompatActivity implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int i) {
+        try{
+            ((PlayerFragment)viewPagerAdapter.getCurrentItem(i)).play(viewPagerAdapter.getCurrentSong(i));
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+       Log.d("onPageSelected","position:- "+i);
 
     }
 
     @Override
     public void onPageScrollStateChanged(int i) {
+
+    }
+    public Song getCurrentSong(){
+return viewPagerAdapter.getCurrentSong(binding.viewPager.getCurrentItem());
 
     }
 }

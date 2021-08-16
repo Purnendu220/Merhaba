@@ -1,14 +1,13 @@
 package com.wpits.merhaba.adapter.viewholder;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wpits.merhaba.R;
-import com.wpits.merhaba.activity.PlayerActivity;
 import com.wpits.merhaba.activity.SongActivity;
 import com.wpits.merhaba.adapter.AdapterCallbacks;
 import com.wpits.merhaba.model.category.Category;
@@ -22,7 +21,7 @@ public class GridItemViewHolder extends RecyclerView.ViewHolder {
     public TextView textViewCategoryName;
 
     private final Context context;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
 
     public GridItemViewHolder(View itemView) {
         super(itemView);

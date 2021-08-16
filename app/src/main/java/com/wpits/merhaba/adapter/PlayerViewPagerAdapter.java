@@ -1,18 +1,16 @@
 package com.wpits.merhaba.adapter;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
-import com.wpits.merhaba.activity.ui.favourite.FavouriteFragment;
-import com.wpits.merhaba.activity.ui.home.HomeFragment;
-import com.wpits.merhaba.activity.ui.more.MoreFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import com.wpits.merhaba.activity.ui.player.PlayerFragment;
-import com.wpits.merhaba.activity.ui.settings.SettingsFragment;
 import com.wpits.merhaba.model.album.Song;
-import com.wpits.merhaba.utils.AppConstant;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -20,9 +18,17 @@ import java.util.List;
 public class PlayerViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private int tabsCount;
-    private List<Song> mSongsList;
+    private List<Song> mSongsList ;
+    private PlayerFragment mCurrentFragment;
+    private HashMap<Integer,Fragment> fragmentMap = new HashMap<>();
 
+    public Fragment getCurrentItem(int position) {
+        return fragmentMap.get(position);
+    }
 
+    public Song getCurrentSong(int position) {
+        return mSongsList.get(position);
+    }
 
     public PlayerViewPagerAdapter(FragmentManager fm,List<Song> songsList) {
         super(fm);
@@ -37,7 +43,9 @@ public class PlayerViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment frag = null;
-        frag =  PlayerFragment.newInstance(mSongsList.get(position));
+        frag =  PlayerFragment.newInstance(mSongsList.get(position),position);
+        fragmentMap.put(position,frag);
+        Log.d("onPageSelected","getItem position "+position);
         return frag;
     }
 

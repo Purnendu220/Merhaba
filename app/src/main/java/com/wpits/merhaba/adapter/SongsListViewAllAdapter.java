@@ -1,7 +1,7 @@
 package com.wpits.merhaba.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +107,7 @@ public class SongsListViewAllAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_CLASS) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_vertical_items_new, parent, false);
-            return new SongVerticalItemViewHolder(view);
+            return new SongVerticalItemViewHolder(view,shownInScreen);
 
         } else if (viewType == VIEW_TYPE_LOADER) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_list_progress, parent, false);

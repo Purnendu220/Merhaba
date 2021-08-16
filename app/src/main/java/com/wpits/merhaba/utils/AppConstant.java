@@ -30,21 +30,31 @@ public class AppConstant {
         int FROM_FAVOURITES= 2;
 
     }
+    public interface Language{
+        String ENGLISH = "en";
+        String ARABIC= "ar";
+
+    }
 
    public interface Prefrences {
         String USER_MOBILE = "USER_MOBILE";
         String USER_IS_LOGGED_IN = "USER_IS_LOGGED_IN";
+       String USER_LANGUAGE = "USER_LANGUAGE";
 
+       String ALL_CATEGORIES = "ALL_CATEGORIES";
+       String ALL_BANNERS = "ALL_BANNERS";
 
        String IS_FIRST_RUN = "isFirstRun";
+       String IS_SHOW_APP_INTRO = "isShowAppIntro";
+
        String IS_FIREBASE_ID_UPDATED = "FirebaseIdUpdated";
        String USER_DATA = "user_data";
 
    }
     public interface Tabs {
-        int SETTINGS = 0;
-        int HOME = 1;
-        int FAVOURITE = 2;
+        int SETTINGS = 2;
+        int HOME = 0;
+        int FAVOURITE = 1;
         int MORE = 3;
 
     }

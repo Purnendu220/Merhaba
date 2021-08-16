@@ -22,10 +22,26 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.wpits.merhaba.adapter.MainSliderAdapter;
+import com.wpits.merhaba.helper.PrefrenceManager;
+import com.wpits.merhaba.model.BannerModel;
+import com.wpits.merhaba.model.category.Category;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Utility {
-    public static boolean isArabic = false;
 
+
+    public static boolean isArabic(){
+        return PrefrenceManager.getInstance().getUserLanguage().equalsIgnoreCase("ar")?true:false;
+    }
     public static void hideKeyBoardFromView(Activity mActivity) {
         InputMethodManager inputMethodManager = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = mActivity.getCurrentFocus();
@@ -96,7 +112,7 @@ public class Utility {
         });
     }
     public static boolean getFavStatus(String status){
-        if(status==null||status.equalsIgnoreCase("Not Favorite")){
+        if(status==null||status.equalsIgnoreCase("null")||status.equalsIgnoreCase("Not Favorite")){
             return false;
         }else{
             return true;
@@ -112,5 +128,76 @@ public class Utility {
         String second = seconds<10?"0"+seconds:seconds+"";
 
         return min+":"+second;
+    }
+
+    public static List<Category> getSavedCategories(String list){
+        Category category;
+     List<Category> allSampleData = new ArrayList<>();
+        try {
+            JSONArray response = new JSONArray(list);
+            for(int i=0;i<response.length();i++){
+                if(i>7){
+                    break;
+                }
+
+                JSONObject categoryObject=response.getJSONObject(i);
+                category=new Category();
+                category.setId(categoryObject.getInt("id"));
+                category.setCategoryName(categoryObject.getString("categoryName"));
+                category.setCategoryNameAr(categoryObject.getString("categoryNameAr"));
+                allSampleData.add(category);
+
+
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    return allSampleData;
+    }
+    public static List<BannerModel> getBannerList(JSONObject response){
+        if(response!=null){
+            BannerModel bannerModel;
+            List<BannerModel> bannerList = new ArrayList<>();
+
+            Log.d("BannerResponse",response.toString());
+            try {
+                JSONArray data = response.getJSONArray("data");
+
+                for(int i=0;i<data.length();i++){
+                    JSONObject bannerContent=data.getJSONObject(i);
+                    bannerModel=new BannerModel(bannerContent.getInt("id"),bannerContent.getString("filePath"));
+                    bannerList.add(bannerModel);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+            }
+            return bannerList;
+        }
+        else{
+           return new ArrayList<BannerModel>();
+        }
+    }
+    public static String getCategoryName(List<Category> list,int categoryId,boolean isArabic) {
+        String categoryName = "";
+        for (Category cat:list
+             ) {
+            if(cat.getId()==categoryId){
+                if(isArabic){
+                    categoryName = cat.getCategoryNameAr();
+
+                }else{
+                    categoryName = cat.getCategoryName();
+
+                }
+            }
+
+        }
+
+       return categoryName;
     }
 }

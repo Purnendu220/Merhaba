@@ -1,26 +1,26 @@
 package com.wpits.merhaba.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.Transition;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,6 +31,9 @@ import com.wpits.merhaba.R;
 import com.wpits.merhaba.adapter.AdapterCallbacks;
 import com.wpits.merhaba.adapter.SongsListViewAllAdapter;
 import com.wpits.merhaba.databinding.ActivitySearchBinding;
+import com.wpits.merhaba.helper.JsonUtils;
+import com.wpits.merhaba.helper.PrefrenceManager;
+import com.wpits.merhaba.model.AddToFavRequest;
 import com.wpits.merhaba.model.album.Song;
 import com.wpits.merhaba.utility.KeyboardUtils;
 import com.wpits.merhaba.utility.LogUtils;
@@ -47,7 +50,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener, AdapterCallbacks<Object> {
+public class SearchActivity extends BaseActivity implements View.OnClickListener, AdapterCallbacks<Object> {
     public static void openActivity(Context context, Activity activity, View sharedElement, int navigationFrom) {
 
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElement, "searchIcon");
@@ -65,6 +68,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private Runnable runnableSearch;
     private boolean isSearching = false;
     SongsListViewAllAdapter songsListAdapter;
+    boolean isArabic = Utility.isArabic();
+    public final int searchByName = 1;
+    public final int searchByArtist = 2;
+    public final int searchById = 3;
+
+    int searchBy = searchByName;
+    private List<Song> songsList= new ArrayList<>();
+
+
+
 
 
     @Override
@@ -119,7 +132,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             KeyboardUtils.open(binding.editTextSearch, context);
         }
 
-        songsListAdapter=new SongsListViewAllAdapter(context,0,false,this);
+        songsListAdapter=new SongsListViewAllAdapter(context,100,false,this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         binding.recyclerViewSearch.setLayoutManager(mLayoutManager);
         binding.recyclerViewSearch.setItemAnimator(new DefaultItemAnimator());
@@ -133,6 +146,51 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             LogUtils.exception(e);
         }
         setupSearch();
+        markRadio(searchBy);
+
+
+        binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.radioByName:
+                        searchBy = searchByName;
+                        break;
+                    case R.id.radioById:
+                        searchBy = searchById;
+
+                        break;
+                    case R.id.radioByArtist:
+                        searchBy = searchByArtist;
+                        break;
+
+                }
+                markRadio(searchBy);
+            }
+        });
+    }
+
+    private void markRadio(int searchBy){
+        switch (searchBy){
+            case searchByName:
+                binding.radioByName.setChecked(true);
+                binding.editTextSearch.setHint(context.getResources().getString(R.string.search_by_name));
+                break;
+            case searchById:
+                binding.radioById.setChecked(true);
+                binding.editTextSearch.setHint(context.getResources().getString(R.string.search_by_id));
+
+
+                break;
+            case searchByArtist:
+                binding.radioByArtist.setChecked(true);
+                binding.editTextSearch.setHint(context.getResources().getString(R.string.search_by_artist));
+
+
+                break;
+        }
+        binding.editTextSearch.setText("");
+
     }
 
     @Override
@@ -298,8 +356,46 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     private List<Song> searchApi(String search) {
 
-        final List<Song> songsList = new ArrayList<Song>();
-        String album_url = "https://www.marhaba.com.ly:18083/topContent/topContentByCtgId?ctgId="+"1";
+         songsList = new ArrayList<Song>();
+        String album_url = null;
+        if(isArabic){
+            if(searchBy == searchByName){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentSearch?search="+search;
+
+            }
+            else if(searchBy == searchById){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongId?songId="+search;
+
+            }
+           else if(searchBy == searchByArtist){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentByArtistNameAr?artistName="+search;
+
+            }else{
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongNameAr?songName="+search;
+
+            }
+        }else{
+            if(searchBy == searchByName){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentSearch?search="+search;
+
+            }
+           else if(searchBy == searchById){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongId?songId="+search;
+
+            }
+            else if(searchBy == searchByArtist){
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentByArtistName?artistName="+search;
+
+            }
+            else{
+                album_url = "https://www.marhaba.com.ly:18083/topContent/topContentBySongName?songName="+search;
+
+            }
+
+
+        }
+        Log.d("Request --->",album_url);
+
         JsonObjectRequest albumRequest=new JsonObjectRequest(Request.Method.GET, album_url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -316,11 +412,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                     for(int i=0;i<data.length();i++){
 
-                        JSONObject topContent=data.getJSONObject(i);
+                        JSONObject songContent=data.getJSONObject(i);
                         //JSONObject categoryContent=categoryList.getJSONObject("album");
-                        Log.d("Songs", topContent.toString());
-                        JSONObject songContent = topContent.getJSONObject("topContent");
-                        String favStatus = topContent.getString("favStatus");
+                        //Log.d("Songs", topContent.toString());
+                        //JSONObject songContent = topContent.getJSONObject("topContent");
+                       // String favStatus = topContent.getString("favStatus");
                         int id = songContent.getInt("id");
                         int songId =songContent.getInt("songId");
                         String songName =songContent.getString("songName");
@@ -346,14 +442,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                         song.setSongsNameAr(songsNameAr);
                         song.setContentPathLocation(contentPathLocation);
                         song.setSongId(songId);
-                        song.setFavStatus(Utility.getFavStatus(favStatus));
+                       // song.setFavStatus(Utility.getFavStatus(favStatus));
 
                         Log.d("Songs", categoryId+" "+catCategoryId);
 
-                        if(catCategoryId == categoryId) {
+                        if(!ifListHaveSong(song)){
                             songsList.add(song);
 
                         }
+
+
                     }
 
                     songsListAdapter.addAllClass(songsList);
@@ -392,10 +490,36 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         return songsList;
     }
+    private boolean ifListHaveSong(Song model){
+        for (Song song:songsList) {
+
+            if(model.getSongId().equals(song.getSongId())){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public void onAdapterItemClick(RecyclerView.ViewHolder viewHolder, View view, Object model, int position) {
 
+        switch (view.getId()){
+            case R.id.addToFav:
+                final Song song = (Song) model;
+                if(song.getFavStatus()){
+                    unfavRequest(song);
+                }else{
+                    addToFavourite(song);
+                }
+                break;
+            case R.id.imgPlay:
+                final Song data = (Song) model;
+                PlayerActivity.open(context,0,data.getCategoryId(),data);
+                onBackPressed();
+
+                break;
+
+        }
     }
 
     @Override
@@ -407,4 +531,87 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void onShowLastItem() {
 
     }
+
+    private void unfavRequest(Song mSong){
+        final ProgressDialog dialog = Utility.showProgress(context);
+        String x="https://www.marhaba.com.ly:18086/crbt/v1/deleteFavorite";
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("subscriber_id", PrefrenceManager.getInstance().getUserMobile());
+            jsonRequest.put("top_content_id", mSong.getId());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("Fav Request", JsonUtils.toJson(jsonRequest));
+
+
+        JsonObjectRequest addToFavRequestRequest=new JsonObjectRequest(Request.Method.POST, x,jsonRequest , new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("CategoryResponse",response.toString());
+                try {
+                    Toast.makeText(context,"Song unmarked as Favourite",Toast.LENGTH_LONG);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                dialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("CategoryErrorResponse",error.toString());
+                dialog.dismiss();
+
+
+            }
+        });
+
+        MySingleton.getInstance(context).addToRequest(addToFavRequestRequest);
+    }
+
+    private void addToFavourite(Song mSong){
+        final ProgressDialog dialog = Utility.showProgress(context);
+
+        String x="https://www.marhaba.com.ly:18086/crbt/v1/favorites";
+
+        AddToFavRequest request =  new AddToFavRequest(PrefrenceManager.getInstance().getUserMobile(),mSong.getId()+"");
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("subscriber_id", PrefrenceManager.getInstance().getUserMobile());
+            jsonRequest.put("top_content_id", mSong.getId());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("Fav Request", JsonUtils.toJson(jsonRequest));
+
+
+        JsonObjectRequest addToFavRequestRequest=new JsonObjectRequest(Request.Method.POST, x,jsonRequest , new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("CategoryResponse",response.toString());
+                try {
+                    Toast.makeText(context,"Song marked as Favourite",Toast.LENGTH_LONG);
+                    dialog.dismiss();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("CategoryErrorResponse",error.toString());
+                dialog.dismiss();
+
+            }
+        });
+
+        MySingleton.getInstance(context).addToRequest(addToFavRequestRequest);
+    }
+
+
 }

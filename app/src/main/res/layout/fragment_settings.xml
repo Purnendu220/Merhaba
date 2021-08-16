@@ -1,24 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ui.settings.SettingsFragment">
+    tools:context=".activity.ui.settings.SettingsFragment"
+    android:background="@color/white"
+    android:padding="@dimen/margin_5"
 
-    <TextView
-        android:id="@+id/text_notifications"
+
+    >
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/textColorAccent"
+        tools:ignore="MissingConstraints"
+        android:elevation="@dimen/margin_5"
+        android:layout_margin="@dimen/margin_10"
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/margin_5"
 
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="14sp"
+                android:text="@string/change_app_lang"
+                android:textColor="@color/black"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10"
+
+                ></TextView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginLeft="@dimen/margin_10"
+
+                >
+                <RadioButton
+                    android:id="@+id/radioEnglish"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/english"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/colorAccent"
+                    android:theme="@style/MyRadioButton"
+                    android:gravity="left|center_vertical"
+
+                    >
+
+
+                </RadioButton>
+                <RadioButton
+                    android:id="@+id/radioArabic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/arabic"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/colorAccent"
+                    android:theme="@style/MyRadioButton"
+                    android:gravity="left|center_vertical"
+
+
+                    >
+
+
+                </RadioButton>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

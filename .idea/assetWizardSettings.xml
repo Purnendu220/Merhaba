@@ -108,8 +108,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="941b84" />
-                            <entry key="outputName" value="ic_play_button_arrowhead" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../play-button-arrowhead.svg" />
+                            <entry key="outputName" value="ic_icon" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../icon.svg" />
                           </map>
                         </option>
                       </PersistentState>

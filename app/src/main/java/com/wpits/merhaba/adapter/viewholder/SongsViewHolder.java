@@ -1,26 +1,18 @@
 package com.wpits.merhaba.adapter.viewholder;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -31,9 +23,9 @@ import com.wpits.merhaba.adapter.AdapterCallbacks;
 import com.wpits.merhaba.adapter.SongListAdapterNew;
 import com.wpits.merhaba.model.album.Song;
 import com.wpits.merhaba.model.category.Category;
+import com.wpits.merhaba.remoteConfig.RemoteConfigure;
 import com.wpits.merhaba.utility.Utility;
 import com.wpits.merhaba.utils.CirclePagerIndicatorDecoration;
-import com.wpits.merhaba.utils.LinePagerIndicatorDecoration;
 import com.wpits.merhaba.utils.MySingleton;
 
 import org.json.JSONArray;
@@ -56,7 +48,7 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
 
 
     private final Context context;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
 
     public SongsViewHolder(View itemView) {
         super(itemView);
@@ -74,13 +66,27 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
         if (data != null && data instanceof Category) {
             Category model = (Category) data;
             itemView.setVisibility(View.VISIBLE);
-            if(isArabic){
-                textViewRecomended.setText(model.getCategoryNameAr());
+            if(position == 0){
+                if(isArabic){
 
-            }else{
-                textViewRecomended.setText(model.getCategoryName());
+                    textViewRecomended.setText( RemoteConfigure.getFirebaseRemoteConfig(context).getRemoteConfigValue(RemoteConfigure.top_twenty_ar));
 
+                }else{
+                    textViewRecomended.setText( RemoteConfigure.getFirebaseRemoteConfig(context).getRemoteConfigValue(RemoteConfigure.top_twenty_en));
+
+                }
             }
+            if(position == 1){
+                if(isArabic){
+                    textViewRecomended.setText( RemoteConfigure.getFirebaseRemoteConfig(context).getRemoteConfigValue(RemoteConfigure.new_arrival_ar));
+
+                }else{
+                    textViewRecomended.setText( RemoteConfigure.getFirebaseRemoteConfig(context).getRemoteConfigValue(RemoteConfigure.new_arrival_en));
+
+
+                }
+            }
+
             albumApi(model.getId(),adapterCallbacks);
 
 
@@ -124,10 +130,10 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
                     JSONArray data = response.getJSONArray("data");
 
                     for(int i=0;i<data.length();i++){
-                        JSONObject topContent=data.getJSONObject(i);
+                        JSONObject songContent=data.getJSONObject(i);
                         //JSONObject categoryContent=categoryList.getJSONObject("album");
-                        JSONObject songContent = topContent.getJSONObject("topContent");
-                        String favStatus = topContent.getString("favStatus");
+                        //JSONObject songContent = topContent.getJSONObject("topContent");
+                        //
 
                         int id = songContent.getInt("id");
                         int songId =songContent.getInt("songId");
@@ -141,6 +147,7 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
                         String albumArt=   songContent.getString("albumArt");
                         String contentPathLocation=   songContent.getString("contentPathLocation");
 
+
                         Song song=new Song();
                         song.setId(id);
                         song.setAlbumArt(albumArt);
@@ -153,7 +160,13 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
                         song.setSongsNameAr(songsNameAr);
                         song.setContentPathLocation(contentPathLocation);
                         song.setSongId(songId);
-                        song.setFavStatus(Utility.getFavStatus(favStatus));
+                        try{
+                            String favStatus = songContent.getString("favStatus");
+                            song.setFavStatus(Utility.getFavStatus(favStatus));
+
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
 
                         Log.d("Songs", categoryId+" "+catCategoryId);
 
@@ -192,8 +205,10 @@ public class SongsViewHolder extends RecyclerView.ViewHolder {
                 params.put("Content-Type","application/json");
                 return params;
             }
-        }
-                ;
+        };
+        albumRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context).addToRequest(albumRequest);
 
         return songsList;

@@ -1,11 +1,11 @@
 package com.wpits.merhaba.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.wpits.merhaba.R;
 
-public class AlbumsActivity extends AppCompatActivity {
+public class AlbumsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

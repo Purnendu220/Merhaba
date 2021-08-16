@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,7 +35,6 @@ import com.example.jean.jcplayer.model.JcAudio;
 import com.example.jean.jcplayer.view.JcPlayerView;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-import com.wpits.merhaba.MainActivity;
 import com.wpits.merhaba.R;
 import com.wpits.merhaba.helper.JsonUtils;
 import com.wpits.merhaba.helper.PrefrenceManager;
@@ -53,14 +52,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SongDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class SongDetailActivity extends BaseActivity implements View.OnClickListener {
 ImageView songImage;
 LinearLayout addToCart,palySong,addToFav,giftFriend;
 TextView txtSongName,songId,txtArtistName,txtCategoryName;
 Toolbar mToolbar;
 Song mSong;
 Dialog myDialog;
-    boolean isArabic = Utility.isArabic;
+    boolean isArabic = Utility.isArabic();
   Context mContext;
   JcPlayerView jcplayerView;
 
